@@ -3,5 +3,18 @@ export interface Post {
   title: string;
   description: string;
   createdAt: string;
-  // Добавьте другие поля, если они есть в API
-} 
+  image?: string; 
+  preview: string;
+}
+
+export interface PostPreview {
+  id: string;
+  title: string;
+  preview: string;
+  createdAt: string;
+  image?: string;
+}
+
+export interface PostFull extends PostPreview {
+  description: string;
+}
