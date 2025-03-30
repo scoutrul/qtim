@@ -1,30 +1,36 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <div v-if="loading" class="text-center">
+  <div class="container mx-auto px-4 py-12 max-w-[1440px]">
+    <div v-if="loading" class="text-center py-16">
       <p class="text-xl">Загрузка статьи...</p>
     </div>
-    <div v-else-if="error" class="text-center text-red-500">
+    <div v-else-if="error" class="text-center text-red-500 py-16">
       <p class="text-xl">Ошибка загрузки статьи: {{ error.message }}</p>
     </div>
     <div v-else-if="post" class="article-content">
-      <h1 class="text-3xl font-bold mb-4">{{ post.title }}</h1>
-      <div class="text-gray-500 mb-6">
-        <p>Дата публикации: {{ new Date(post.createdAt).toLocaleDateString() }}</p>
-      </div>
-      <div v-if="post.image" class="mb-6">
+      <h1 class="text-5xl font-bold mb-8">{{ post.title }}</h1>
+      
+      <div v-if="post.image" class="mb-12 max-h-[600px] overflow-hidden">
         <img :src="post.image" :alt="post.title" class="w-full h-auto rounded-lg shadow-md">
       </div>
-      <p class="text-xl mb-8">{{ post.description }}</p>
+      
+      <div class="mb-6 text-gray-600">
+        <p>Дата публикации: {{ new Date(post.createdAt).toLocaleDateString() }}</p>
+      </div>
+      
+      <div class="mb-12">
+        <Typography text="About" variant="h5" class="mb-3" />
+        <p class="text-xl">{{ post.description }}</p>
+      </div>
       
       <!-- Кнопка для возврата к списку статей -->
       <button 
         @click="router.push('/')" 
-        class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200"
+        class="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200"
       >
         Назад к списку статей
       </button>
     </div>
-    <div v-else class="text-center">
+    <div v-else class="text-center py-16">
       <p class="text-xl">Статья не найдена</p>
     </div>
   </div>
@@ -33,7 +39,8 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { usePosts } from '../../composables/usePosts'
+import { usePosts } from '@/composables/usePosts'
+import Typography from '@/components/ui/Typography.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -52,7 +59,7 @@ onMounted(async () => {
 
 <style scoped>
 .article-content {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 </style> 

@@ -1,15 +1,65 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@layer base {
-  html {
-    font-family: 'Inter', Arial, sans-serif;
+/* Базовые стили для всего сайта */
+:root {
+  --primary-color: #8a70ff;
+  --primary-bg: #f0ebff;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Контейнер с максимальной шириной */
+.max-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Адаптивные стили для карточек статей */
+@media (max-width: 1200px) {
+  .article-card {
+    transition: transform 0.3s ease;
+  }
+  .article-card:hover {
+    transform: translateY(-5px);
+  }
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem !important;
   }
   
-  body {
-    @apply bg-white text-black;
+  h2 {
+    font-size: 2rem !important;
   }
   
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+  .article-content {
+    max-width: 100% !important;
   }
+}
+
+/* Адаптивные стили для очень маленьких устройств */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+/* Стилизация фиолетового футера */
+.footer-purple {
+  background-color: var(--primary-bg);
 } 

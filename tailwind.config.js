@@ -11,34 +11,32 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Grayscale colors
-        black: '#000000',
-        white: '#FFFFFF',
-        'dark-gray': '#1A1A1A',
-        gray: '#808080',
+        primary: '#8A70FF',
+        secondary: '#F0EBFF',
+        'dark-gray': '#333333',
         'light-gray': '#F5F5F5',
-        
-        // Accent colors
-        mint: '#98FFB0',
-        purple: '#7B4EA8',
-        lavender: '#E6D5FF',
-        blue: '#0066FF',
+        'black': '#000000',
+        'white': '#FFFFFF',
+        'error': '#FF5252',
+        'success': '#4CAF50',
       },
       fontFamily: {
-        sans: ['Inter', 'Arial', 'sans-serif'],
-        display: ['Inter', 'Arial', 'sans-serif'],
+        'sans': ['Inter', 'sans-serif'],
+        'display': ['Inter', 'sans-serif'],
       },
       fontSize: {
-        'logo': ['24px', { lineHeight: '32px', fontWeight: '700' }],
-        'nav': ['16px', { lineHeight: '24px', fontWeight: '400' }],
-        'button': ['16px', { lineHeight: '24px', fontWeight: '500' }],
-      },
-      borderRadius: {
-        'button': '20px',
+        'nav': '1rem',
+        'button': '1rem',
+        'logo': '1.5rem',
       },
       spacing: {
-        'nav-gap': '20px',
-        'header-padding': '20px',
+        'header-padding': '2rem 4rem',
+      },
+      gap: {
+        'nav-gap': '2rem',
+      },
+      borderRadius: {
+        'button': '0.5rem',
       },
     }
   },

@@ -1,6 +1,6 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">Добро пожаловать в блог</h1>
+  <div class="container mx-auto px-4 py-8 max-w-[1440px]">
+    <h1 class="text-5xl font-bold mb-12">Articles</h1>
     
     <!-- Используем компонент ArticlesList для отображения списка статей -->
     <ArticlesList />

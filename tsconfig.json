@@ -6,6 +6,21 @@
     },
     "moduleResolution": "bundler",
     "target": "ESNext",
-    "module": "ESNext"
-  }
+    "module": "ESNext",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "types": ["vite/client"]
+  },
+  "vueCompilerOptions": {
+    "target": 3
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.vue"
+  ]
 }

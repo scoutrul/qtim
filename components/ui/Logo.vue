@@ -8,10 +8,17 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   color: 'black'
 })
+
+defineEmits<{
+  click: [event: MouseEvent]
+}>()
 </script>
 
 <template>
-  <div :class="`font-display text-logo font-bold text-${color}`">
+  <div 
+    :class="`font-display text-logo cursor-pointer font-bold text-${color}`" 
+    @click="$emit('click', $event)"
+  >
     <slot>QTIM</slot>
   </div>
 </template> 

@@ -1,5 +1,5 @@
-import { ref, computed } from 'vue'
-import type { PostPreview, PostFull } from '../types/post'
+import { ref, computed, watch } from 'vue'
+import type { PostPreview, PostFull } from '@/types/post'
 
 export function usePosts() {
   const posts = ref<PostPreview[]>([])
@@ -7,7 +7,7 @@ export function usePosts() {
   const error = ref<Error | null>(null)
   const loading = ref(false)
   const currentPage = ref(1)
-  const postsPerPage = ref(8)
+  const postsPerPage = ref(8) // 4 поста в строку, 2 строки
   
   // Вычисляемое свойство для получения постов текущей страницы
   const paginatedPosts = computed(() => {
@@ -63,6 +63,15 @@ export function usePosts() {
       currentPage.value = page
     }
   }
+  
+  // Смотрим за изменением текущей страницы при ручном выборе
+  watch(currentPage, (newPage) => {
+    if (newPage > totalPages.value) {
+      currentPage.value = totalPages.value
+    } else if (newPage < 1) {
+      currentPage.value = 1
+    }
+  })
 
   return {
     posts,
@@ -76,6 +85,7 @@ export function usePosts() {
     fetchPostById,
     nextPage,
     prevPage,
-    goToPage
+    goToPage,
+    postsPerPage
   }
 } 
