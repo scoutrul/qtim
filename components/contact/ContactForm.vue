@@ -1,5 +1,5 @@
 <template>
-  <div class="contact-form bg-white rounded-lg max-w-xl">
+  <div class="contact-form w-full">
     <form @submit.prevent="handleSubmit">
       <div class="mb-4">
         <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Ваше имя</label>

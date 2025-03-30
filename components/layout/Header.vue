@@ -99,11 +99,24 @@ const toggleMobileMenu = () => {
     </div>
 
     <!-- Модальное окно с формой заявки -->
-    <Modal v-model="isModalOpen" @close="closeModal">
-      <template #header>
-        <h2 class="text-xl font-bold mb-4">Связаться с нами</h2>
-      </template>
+    <Modal 
+      v-model="isModalOpen" 
+      @close="closeModal"
+      title="Связаться с нами"
+      size="sm"
+      :persistent="false"
+    >
       <ContactForm @submit="closeModal" />
+      <template #footer>
+        <Button 
+          variant="text" 
+          size="md" 
+          @click="closeModal"
+          class="mr-3"
+        >
+          Отмена
+        </Button>
+      </template>
     </Modal>
   </header>
 </template> 

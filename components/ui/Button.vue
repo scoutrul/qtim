@@ -9,7 +9,7 @@ import { computed } from 'vue'
 import type { ColorName } from '@/types/colors'
 
 interface Props {
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'text'
   size?: 'sm' | 'md' | 'lg'
   color?: ColorName
   rounded?: boolean
@@ -27,7 +27,8 @@ const classes = computed(() => {
   
   const variantClasses = {
     primary: `bg-${props.color} text-white hover:bg-dark-gray`,
-    secondary: `bg-transparent text-${props.color} border border-${props.color} hover:bg-light-gray`
+    secondary: `bg-transparent text-${props.color} border border-${props.color} hover:bg-light-gray`,
+    text: `bg-transparent text-${props.color} hover:text-gray-600 hover:underline`
   }
   
   const sizeClasses = {
@@ -38,7 +39,7 @@ const classes = computed(() => {
 
   const roundedClass = props.rounded 
     ? 'rounded-full' 
-    : 'rounded-button'
+    : props.variant === 'text' ? '' : 'rounded-button'
   
   return `${baseClasses} ${variantClasses[props.variant]} ${sizeClasses[props.size]} ${roundedClass}`
 })
