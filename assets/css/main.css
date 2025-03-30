@@ -14,35 +14,6 @@ body {
   line-height: 1.5;
 }
 
-/* Глобальные стили для адаптивности */
-@layer utilities {
-  .container {
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
-  
-  @media (min-width: 640px) {
-    .container {
-      padding: 0 2rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .container {
-      padding: 0 4rem;
-    }
-  }
-}
-
-/* Контейнер с максимальной шириной */
-.max-container {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
 /* Адаптивные стили для карточек статей */
 @media (max-width: 1200px) {
   .article-card {

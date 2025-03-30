@@ -9,6 +9,21 @@ module.exports = {
     './error.vue'
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem'
+      },
+      screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1440px',
+      },
+    },
     screens: {
       'sm': '640px',
       'md': '768px',
@@ -47,7 +62,35 @@ module.exports = {
       borderRadius: {
         'button': '0.5rem',
       },
+      aspectRatio: {
+        'article-img': '16/9',
+        'square': '1/1',
+      },
+      animation: {
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: '#333',
+            p: {
+              marginBottom: '1.5rem',
+            },
+          },
+        },
+      },
     }
   },
-  plugins: [],
+  plugins: [
+    // Попытка загрузить плагин typography, но без падения в случае его отсутствия
+    function() {
+      try {
+        return require('@tailwindcss/typography');
+      } catch (e) {
+        console.warn('Warning: @tailwindcss/typography plugin is not installed. Typography styles will fallback to custom CSS.');
+        return {};
+      }
+    }(),
+  ],
 } 

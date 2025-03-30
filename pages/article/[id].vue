@@ -1,65 +1,128 @@
 <template>
-  <div class="container mx-auto px-4 py-12 max-w-[1440px]">
-    <div v-if="loading" class="text-center py-16">
-      <p class="text-xl">Загрузка статьи...</p>
+  <main>
+    <div v-if="loading" class="container py-16 sm:py-20 min-h-[60vh] flex justify-center items-center">
+      <div class="animate-pulse text-2xl">Загрузка...</div>
     </div>
-    <div v-else-if="error" class="text-center text-red-500 py-16">
-      <p class="text-xl">Ошибка загрузки статьи: {{ error.message }}</p>
+    
+    <div v-else-if="error" class="container py-16 sm:py-20 min-h-[60vh] flex justify-center items-center">
+      <div class="text-error text-xl">Ошибка загрузки статьи. Попробуйте позже.</div>
     </div>
-    <div v-else-if="post" class="article-content">
-      <h1 class="text-5xl font-bold mb-8">{{ post.title }}</h1>
+    
+    <div v-else-if="post" class="container py-16 sm:py-20">
+      <!-- Заголовок статьи -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 sm:mb-16 max-w-4xl">
+        {{ post.title }}
+      </h1>
       
-      <div v-if="post.image" class="mb-12 max-h-[600px] overflow-hidden">
-        <img :src="post.image" :alt="post.title" class="w-full h-auto rounded-lg shadow-md">
+      <!-- Основное изображение -->
+      <div class="mb-16 sm:mb-20 relative">
+        <!-- Контейнер с фиксированным соотношением сторон 16:9 -->
+        <div class="aspect-[16/9] overflow-hidden rounded-lg">
+          <!-- Изображение статьи -->
+          <img 
+            v-if="!imageError && post.image"
+            :src="post.image" 
+            :alt="post.title"
+            @load="handleImageLoad"
+            @error="handleImageError"
+            class="w-full h-full object-cover" 
+            :class="{'opacity-0': !imageLoaded}"
+          />
+          
+          <!-- Заглушка при загрузке -->
+          <div 
+            v-if="!imageLoaded && !imageError" 
+            class="absolute inset-0 bg-light-gray animate-pulse rounded-lg"
+          ></div>
+          
+          <!-- Заглушка при ошибке загрузки или отсутствии изображения -->
+          <ImagePlaceholder 
+            v-if="imageError || !post.image" 
+            :title="post.title"
+            aspectRatio="landscape"
+            class="absolute inset-0"
+          />
+        </div>
       </div>
       
-      <div class="mb-6 text-gray-600">
-        <p>Дата публикации: {{ new Date(post.createdAt).toLocaleDateString() }}</p>
+      <!-- Контент статьи -->
+      <div class="flex flex-col md:flex-row gap-8 sm:gap-12">
+        <!-- Левая колонка - категория (используем заголовок для категории) -->
+        <div class="md:w-1/4">
+          <div class="sticky top-8">
+            <h2 class="text-base font-medium mb-4">About</h2>
+          </div>
+        </div>
+        
+        <!-- Правая колонка - контент -->
+        <div class="md:w-3/4">
+          <div class="prose">
+            <p v-for="(paragraph, index) in descriptionParagraphs" :key="index" class="text-base sm:text-lg mb-6">
+              {{ paragraph }}
+            </p>
+          </div>
+        </div>
       </div>
-      
-      <div class="mb-12">
-        <Typography text="About" variant="h5" class="mb-3" />
-        <p class="text-xl">{{ post.description }}</p>
-      </div>
-      
-      <!-- Кнопка для возврата к списку статей -->
-      <button 
-        @click="router.push('/')" 
-        class="px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200"
-      >
-        Назад к списку статей
-      </button>
     </div>
-    <div v-else class="text-center py-16">
-      <p class="text-xl">Статья не найдена</p>
-    </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
 import { usePosts } from '@/composables/usePosts'
-import Typography from '@/components/ui/Typography.vue'
 
 const route = useRoute()
-const router = useRouter()
-const { post, error, loading, fetchPostById } = usePosts()
+const articleId = computed(() => route.params.id as string)
+const { post, loading, error, fetchPostById } = usePosts()
 
-// Получаем ID статьи из параметров маршрута
-const articleId = route.params.id as string
+// Статус загрузки изображения
+const imageLoaded = ref(false)
+const imageError = ref(false)
 
-// Загружаем данные статьи при монтировании компонента
+const handleImageLoad = () => {
+  imageLoaded.value = true
+}
+
+const handleImageError = () => {
+  imageError.value = true
+}
+
+// Разбиваем описание на параграфы
+const descriptionParagraphs = computed(() => {
+  if (!post.value?.description) return []
+  return post.value.description.split('\n\n').filter(p => p.trim().length > 0)
+})
+
+// Загружаем статью при монтировании компонента
 onMounted(async () => {
-  if (articleId) {
-    await fetchPostById(articleId)
-  }
+  await fetchPostById(articleId.value)
 })
 </script>
 
 <style scoped>
-.article-content {
-  max-width: 900px;
-  margin: 0 auto;
+/* Дополнительные стили для контента статьи */
+.prose {
+  color: #333;
+  line-height: 1.8;
+  max-width: none;
+}
+
+.prose p {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+}
+
+@media (max-width: 640px) {
+  .prose p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Анимация появления изображения */
+img {
+  transition: opacity 0.3s ease;
 }
 </style> 

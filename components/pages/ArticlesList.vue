@@ -15,9 +15,8 @@
         :key="post.id"
         :title="post.title"
         :description="post.preview"
-        :image="post.image"
-        @click="navigateToArticle(post.id)"
-        class="cursor-pointer"
+        :imageUrl="post.image"
+        :link="`/article/${post.id}`"
       />
     </div>
     
@@ -38,7 +37,7 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePosts } from '@/composables/usePosts'
 import Typography from '@/components/ui/Typography.vue'
-import ArticleCard from '@/components/pages/ArticleCard.vue'
+import ArticleCard from '@/components/article/ArticleCard.vue'
 import Pagination from '@/components/ui/Pagination.vue'
 
 const router = useRouter()
