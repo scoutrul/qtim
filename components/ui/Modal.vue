@@ -177,7 +177,22 @@ onMounted(() => {
             <!-- Футер с кнопками, если есть -->
             <div v-if="$slots.footer" class="p-4 sm:p-6 border-t border-gray-200 bg-gray-50">
               <div class="flex justify-end">
-                <slot name="footer"></slot>
+                <slot name="footer">
+                  <Button 
+                    rounded
+                    size="md" 
+                    class="mr-3 font-tt-commons bg-black hover:bg-black/90 text-white"
+                  >
+                    Отмена
+                  </Button>
+                  <Button 
+                    rounded
+                    size="md" 
+                    class="font-tt-commons bg-black hover:bg-black/90 text-white"
+                  >
+                    Отправить
+                  </Button>
+                </slot>
               </div>
             </div>
           </div>

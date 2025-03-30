@@ -4,6 +4,8 @@ defineProps<{
   size?: number;
   color?: string;
   textColor?: string;
+  halfCircle?: boolean;
+  verticalOffset?: string;
 }>();
 
 defineEmits<{
@@ -17,15 +19,21 @@ defineEmits<{
     :style="{
       width: `${size || 50}px`,
       height: `${size || 50}px`,
-      backgroundColor: color === 'black' || !color ? '#000' : color
+      backgroundColor: color === 'black' || !color ? '#000' : color,
+      ...(halfCircle ? {
+        position: 'relative',
+        overflow: 'visible',
+        transform: `translateY(${verticalOffset || '48%'})`,
+      } : {})
     }"
     @click="$emit('click')"
   >
     <span 
-      class="font-sans"
+      class="font-sans font-medium"
       :class="textColor === 'white' || !textColor ? 'text-white' : 'text-black'"
       :style="{
-        fontSize: `${(size || 50) * 0.24}px`
+        fontSize: `${(size || 50) * 0.24}px`,
+        ...(halfCircle ? { transform: 'translateY(-25%)' } : {})
       }"
     >
       {{ text }}

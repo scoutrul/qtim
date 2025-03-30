@@ -23,17 +23,21 @@ const emit = defineEmits<{
 
 // Определяем классы для кнопки
 const buttonClasses = computed(() => {
-  const baseClasses = 'w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-200 text-lg font-medium'
+  const baseClasses = 'w-11 h-11 rounded-xl flex items-center justify-center transition-colors duration-200 text-base font-medium border'
   
   if (props.disabled) {
-    return `${baseClasses} bg-gray-100 text-gray-400 cursor-not-allowed`
+    return `${baseClasses} bg-pagination-bg text-gray-400 cursor-not-allowed border-pagination-bg`
   }
   
   if (props.isActive) {
-    return `${baseClasses} bg-black text-white`
+    return `${baseClasses} bg-black text-white border-black cursor-default`
   }
   
-  return `${baseClasses} bg-gray-100 text-black hover:bg-gray-200`
+  if (props.isArrow) {
+    return `${baseClasses} bg-white text-black hover:bg-white hover:text-black hover:border-pagination-bg border-pagination-bg`
+  }
+  
+  return `${baseClasses} bg-pagination-bg text-black hover:bg-white hover:text-black hover:border-pagination-bg border-pagination-bg`
 })
 
 // Содержимое кнопки

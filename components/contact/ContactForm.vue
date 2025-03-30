@@ -37,10 +37,10 @@
       </div>
       
       <Button 
-        variant="primary" 
+        rounded
         size="lg" 
         :disabled="loading"
-        class="w-full"
+        class="w-full mt-4 font-tt-commons bg-black hover:bg-black/90 text-white"
       >
         {{ loading ? 'Отправка...' : 'Отправить заявку' }}
       </Button>

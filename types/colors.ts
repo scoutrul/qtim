@@ -7,7 +7,8 @@ export const grayscaleColors: Color[] = [
   { hex: '#000000', name: 'Black' },
   { hex: '#1A1A1A', name: 'Dark Gray' },
   { hex: '#808080', name: 'Gray' },
-  { hex: '#F5F5F5', name: 'Light Gray' }
+  { hex: '#F5F5F5', name: 'Light Gray' },
+  { hex: '#F3F3F3', name: 'Pagination Background' }
 ];
 
 export const accentColors: Color[] = [
@@ -25,4 +26,5 @@ export type ColorName =
   | 'mint'
   | 'purple'
   | 'lavender'
-  | 'blue'; 
+  | 'blue'
+  | 'pagination-bg'; 

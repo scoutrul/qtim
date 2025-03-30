@@ -1,18 +1,39 @@
 <script setup lang="ts">
-// Можно добавить пропсы для кастомизации ссылок, если нужно
+// Список социальных сетей и ссылок
+const socialLinks = [
+  { name: 'Facebook', url: '#' },
+  { name: 'Instagram', url: '#' },
+  { name: 'Telegram', url: '#' }
+]
+
+const legalLinks = [
+  { name: 'Behance', url: '#' },
+  { name: 'LinkedIn', url: '#' },
+  { name: 'Privacy Policy', url: '#' }
+]
 </script>
 
 <template>
-  <div class="flex justify-between w-full mt-10">
-    <div class="flex gap-nav-gap">
-      <a href="#" class="text-nav text-black no-underline">Facebook</a>
-      <a href="#" class="text-nav text-black no-underline">Instagram</a>
-      <a href="#" class="text-nav text-black no-underline">Telegram</a>
+  <div class="flex flex-col sm:flex-row justify-between w-full gap-6 sm:gap-0">
+    <div class="flex gap-6">
+      <a 
+        v-for="link in socialLinks" 
+        :key="link.name" 
+        :href="link.url" 
+        class="text-black hover:text-purple transition-colors duration-200 font-tt-commons"
+      >
+        {{ link.name }}
+      </a>
     </div>
-    <div class="flex gap-nav-gap">
-      <a href="#" class="text-nav text-black no-underline">Behance</a>
-      <a href="#" class="text-nav text-black no-underline">LinkedIn</a>
-      <a href="#" class="text-nav text-black no-underline">Privacy Policy</a>
+    <div class="flex gap-6">
+      <a 
+        v-for="link in legalLinks" 
+        :key="link.name" 
+        :href="link.url" 
+        class="text-black hover:text-purple transition-colors duration-200 font-tt-commons"
+      >
+        {{ link.name }}
+      </a>
     </div>
   </div>
 </template> 

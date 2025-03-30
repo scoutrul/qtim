@@ -14,7 +14,8 @@ const handleClick = () => {
   <div class="flex justify-center items-center my-10">
     <CircleButton 
       text="Go" 
-      :size="120" 
+      :size="358" 
+      halfCircle
       @click="handleClick"
     />
   </div>

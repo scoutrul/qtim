@@ -1,7 +1,39 @@
 <template>
   <main>
-    <div v-if="loading" class="container py-16 sm:py-20 min-h-[60vh] flex justify-center items-center">
-      <div class="animate-pulse text-2xl">Загрузка...</div>
+    <div v-if="loading" class="container py-16 sm:py-20">
+      <!-- Скелетон заголовка -->
+      <div class="h-12 bg-light-gray rounded skeleton-loading mb-6 max-w-2xl"></div>
+      <div class="h-12 bg-light-gray rounded skeleton-loading mb-16 max-w-xl"></div>
+      
+      <!-- Скелетон изображения -->
+      <div class="aspect-[16/9] bg-light-gray relative overflow-hidden mb-16 sm:mb-20 rounded-lg">
+        <div class="absolute inset-0 skeleton-loading"></div>
+      </div>
+      
+      <!-- Скелетон контента -->
+      <div class="flex flex-col md:flex-row gap-8 sm:gap-12">
+        <!-- Левая колонка - категория -->
+        <div class="md:w-1/4">
+          <div class="sticky top-8">
+            <div class="h-6 bg-light-gray rounded skeleton-loading w-20 mb-4"></div>
+          </div>
+        </div>
+        
+        <!-- Правая колонка - контент -->
+        <div class="md:w-3/4">
+          <div class="prose">
+            <div class="h-6 bg-light-gray rounded skeleton-loading mb-4"></div>
+            <div class="h-6 bg-light-gray rounded skeleton-loading mb-4"></div>
+            <div class="h-6 bg-light-gray rounded skeleton-loading mb-4"></div>
+            <div class="h-6 bg-light-gray rounded skeleton-loading mb-4 w-3/4"></div>
+            
+            <div class="h-6 bg-light-gray rounded skeleton-loading mb-4 mt-8"></div>
+            <div class="h-6 bg-light-gray rounded skeleton-loading mb-4"></div>
+            <div class="h-6 bg-light-gray rounded skeleton-loading mb-4"></div>
+            <div class="h-6 bg-light-gray rounded skeleton-loading mb-4 w-1/2"></div>
+          </div>
+        </div>
+      </div>
     </div>
     
     <div v-else-if="error" class="container py-16 sm:py-20 min-h-[60vh] flex justify-center items-center">
@@ -23,6 +55,7 @@
             v-if="!imageError && post.image"
             :src="post.image" 
             :alt="post.title"
+            loading="lazy"
             @load="handleImageLoad"
             @error="handleImageError"
             class="w-full h-full object-cover" 
@@ -31,11 +64,11 @@
           
           <!-- Заглушка при загрузке -->
           <div 
-            v-if="!imageLoaded && !imageError" 
-            class="absolute inset-0 bg-light-gray animate-pulse rounded-lg"
+            v-if="!imageLoaded && !imageError && post.image" 
+            class="absolute inset-0 bg-light-gray animate-pulse"
           ></div>
           
-          <!-- Заглушка при ошибке загрузки или отсутствии изображения -->
+          <!-- Заглушка при отсутствии изображения или ошибке -->
           <ImagePlaceholder 
             v-if="imageError || !post.image" 
             :title="post.title"
@@ -47,7 +80,7 @@
       
       <!-- Контент статьи -->
       <div class="flex flex-col md:flex-row gap-8 sm:gap-12">
-        <!-- Левая колонка - категория (используем заголовок для категории) -->
+        <!-- Левая колонка - категория -->
         <div class="md:w-1/4">
           <div class="sticky top-8">
             <h2 class="text-base font-medium mb-4">About</h2>
@@ -124,5 +157,35 @@ onMounted(async () => {
 /* Анимация появления изображения */
 img {
   transition: opacity 0.3s ease;
+}
+
+/* Стили для скелетона */
+.skeleton-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 </style> 

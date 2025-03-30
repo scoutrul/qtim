@@ -10,14 +10,24 @@
         @click="goToPage(page)"
       />
       
-      <!-- Кнопка "Вперед" -->
-      <PaginationButton 
-        v-if="showNextButton" 
-        isArrow 
-        direction="next" 
-        :disabled="currentPage >= totalPages"
-        @click="goToPage(currentPage + 1)"
-      />
+      <!-- Контейнер для навигационных кнопок -->
+      <div class="flex items-center gap-3 ml-1">
+        <!-- Кнопка "Назад" -->
+        <PaginationButton 
+          v-if="currentPage > 1"
+          isArrow 
+          direction="prev" 
+          @click="goToPage(currentPage - 1)"
+        />
+        
+        <!-- Кнопка "Вперед" -->
+        <PaginationButton 
+          v-if="showNextButton && currentPage < totalPages" 
+          isArrow 
+          direction="next" 
+          @click="goToPage(currentPage + 1)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +49,7 @@ const props = withDefaults(defineProps<Props>(), {
   totalPages: 5,
   maxVisiblePages: 5,
   showNextButton: true,
-  showPrevButton: false
+  showPrevButton: true
 })
 
 const emit = defineEmits<{

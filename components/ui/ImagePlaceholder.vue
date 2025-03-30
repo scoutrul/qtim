@@ -2,49 +2,47 @@
 import { computed } from 'vue'
 
 interface Props {
-  title?: string
-  aspectRatio?: 'square' | 'landscape' | 'custom'
-  width?: string
-  height?: string
-  bgColor?: string
+  title: string
+  aspectRatio?: 'square' | 'landscape' | 'portrait' | 'auto'
+  maxTitleLength?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: 'Изображение',
   aspectRatio: 'square',
-  width: '100%',
-  height: 'auto',
-  bgColor: 'bg-light-gray'
+  maxTitleLength: 60
 })
 
-// Класс соотношения сторон
+// Вычисляем класс для соотношения сторон
 const aspectRatioClass = computed(() => {
-  switch (props.aspectRatio) {
-    case 'square': return 'aspect-square'
-    case 'landscape': return 'aspect-[16/9]'
-    default: return ''
+  const ratios = {
+    square: 'aspect-square',
+    landscape: 'aspect-[16/9]',
+    portrait: 'aspect-[3/4]',
+    auto: ''
   }
+  
+  return ratios[props.aspectRatio] || 'aspect-square'
+})
+
+// Ограничиваем длину заголовка для отображения
+const truncatedTitle = computed(() => {
+  if (props.title.length <= props.maxTitleLength) {
+    return props.title
+  }
+  return props.title.slice(0, props.maxTitleLength) + '...'
 })
 </script>
 
 <template>
   <div 
-    :class="[
-      aspectRatioClass, 
-      bgColor, 
-      'rounded-lg flex items-center justify-center overflow-hidden'
-    ]"
-    :style="aspectRatio === 'custom' ? { width, height } : {}"
+    class="image-placeholder w-full h-full flex items-center justify-center bg-light-gray text-dark-gray"
+    :class="aspectRatioClass"
   >
     <div class="text-center p-4">
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 24 24" 
-        class="w-12 h-12 mx-auto mb-2 text-gray-400"
-      >
-        <path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/>
+      <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
       </svg>
-      <p class="text-sm text-gray-500">{{ title }}</p>
+      <span class="text-sm font-medium line-clamp-2">{{ truncatedTitle }}</span>
     </div>
   </div>
 </template> 

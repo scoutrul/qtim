@@ -1,21 +1,13 @@
 <template>
   <main>
-    <!-- Индикатор загрузки -->
-    <div v-if="loading" class="container py-16 min-h-[60vh] flex justify-center items-center">
-      <div class="animate-pulse text-2xl">Загрузка статей...</div>
-    </div>
-    
-    <!-- Сообщение об ошибке -->
-    <div v-else-if="error" class="container py-16 min-h-[60vh] flex justify-center items-center">
-      <div class="text-error text-xl">Ошибка загрузки статей. Попробуйте позже.</div>
-    </div>
-    
-    <!-- Секция статей -->
+    <!-- Секция статей со скелетонами при загрузке -->
     <ArticleSection 
-      v-else
       title="Articles" 
       :articles="processedPosts" 
       :items-per-page="postsPerPage"
+      :is-loading="loading"
+      :has-error="!!error"
+      :error-message="error ? error.message : ''"
     />
   </main>
 </template>

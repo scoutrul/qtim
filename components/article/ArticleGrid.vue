@@ -10,7 +10,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
     <ArticleCard 
       v-for="article in articles" 
       :key="article.id"
