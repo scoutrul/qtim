@@ -1,28 +1,14 @@
 <template>
-  <div class="contact-form bg-white p-8 rounded-lg shadow-md max-w-xl">
-    <Typography text="Свяжитесь с нами" variant="h2" class="mb-6" />
-    
+  <div class="contact-form bg-white rounded-lg max-w-xl">
     <form @submit.prevent="handleSubmit">
       <div class="mb-4">
-        <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Имя</label>
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Ваше имя</label>
         <input 
           id="name" 
           v-model="form.name" 
           type="text" 
           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-200"
-          placeholder="Ваше имя"
-          required
-        />
-      </div>
-      
-      <div class="mb-4">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email</label>
-        <input 
-          id="email" 
-          v-model="form.email" 
-          type="email" 
-          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-200"
-          placeholder="example@company.com"
+          placeholder="Введите ваше имя"
           required
         />
       </div>
@@ -38,17 +24,29 @@
         ></textarea>
       </div>
       
+      <div class="mb-6">
+        <label for="contact" class="block mb-2 text-sm font-medium text-gray-700">Контакт</label>
+        <input 
+          id="contact" 
+          v-model="form.contact" 
+          type="text" 
+          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-200"
+          placeholder="Email, телефон, Telegram и т.д."
+          required
+        />
+      </div>
+      
       <Button 
         variant="primary" 
         size="lg" 
-        fullWidth 
         :disabled="loading"
+        class="w-full"
       >
-        {{ loading ? 'Отправка...' : 'Отправить сообщение' }}
+        {{ loading ? 'Отправка...' : 'Отправить заявку' }}
       </Button>
       
       <p v-if="success" class="mt-4 text-green-600 text-sm">
-        Спасибо за сообщение! Мы свяжемся с вами в ближайшее время.
+        Спасибо за заявку! Мы свяжемся с вами в ближайшее время.
       </p>
       <p v-if="error" class="mt-4 text-red-600 text-sm">
         {{ error }}
@@ -59,14 +57,17 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import Typography from '@/components/ui/Typography.vue'
 import Button from '@/components/ui/Button.vue'
+
+const emit = defineEmits<{
+  submit: []
+}>()
 
 // Состояние формы
 const form = reactive({
   name: '',
-  email: '',
-  message: ''
+  message: '',
+  contact: ''
 })
 
 // Состояние отправки
@@ -89,8 +90,11 @@ const handleSubmit = async () => {
     
     // Сброс формы
     form.name = ''
-    form.email = ''
     form.message = ''
+    form.contact = ''
+    
+    // Оповещаем родительский компонент об успешной отправке
+    emit('submit')
   } catch (err) {
     // Обработка ошибки
     error.value = 'Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.'

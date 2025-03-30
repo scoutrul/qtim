@@ -14,6 +14,28 @@ body {
   line-height: 1.5;
 }
 
+/* Глобальные стили для адаптивности */
+@layer utilities {
+  .container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .container {
+      padding: 0 2rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container {
+      padding: 0 4rem;
+    }
+  }
+}
+
 /* Контейнер с максимальной шириной */
 .max-container {
   max-width: 1440px;
@@ -62,4 +84,21 @@ body {
 /* Стилизация фиолетового футера */
 .footer-purple {
   background-color: var(--primary-bg);
+}
+
+/* Скрытие полосы прокрутки при открытом модальном окне */
+body.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Плавные переходы для мобильного меню */
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.mobile-menu-enter-from,
+.mobile-menu-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 } 

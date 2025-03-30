@@ -9,6 +9,13 @@ module.exports = {
     './error.vue'
   ],
   theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       colors: {
         primary: '#8A70FF',
@@ -31,9 +38,11 @@ module.exports = {
       },
       spacing: {
         'header-padding': '2rem 4rem',
+        'header-padding-mobile': '0.5rem 1rem',
       },
       gap: {
         'nav-gap': '2rem',
+        'nav-gap-mobile': '0.5rem',
       },
       borderRadius: {
         'button': '0.5rem',

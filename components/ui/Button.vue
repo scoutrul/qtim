@@ -12,16 +12,18 @@ interface Props {
   variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md' | 'lg'
   color?: ColorName
+  rounded?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
   size: 'md',
-  color: 'black'
+  color: 'black',
+  rounded: false
 })
 
 const classes = computed(() => {
-  const baseClasses = 'rounded-button transition-background duration-300 cursor-pointer font-sans text-button'
+  const baseClasses = 'transition-all duration-300 cursor-pointer font-sans text-button'
   
   const variantClasses = {
     primary: `bg-${props.color} text-white hover:bg-dark-gray`,
@@ -33,7 +35,11 @@ const classes = computed(() => {
     md: 'px-5 py-2.5',
     lg: 'px-6 py-3'
   }
+
+  const roundedClass = props.rounded 
+    ? 'rounded-full' 
+    : 'rounded-button'
   
-  return `${baseClasses} ${variantClasses[props.variant]} ${sizeClasses[props.size]}`
+  return `${baseClasses} ${variantClasses[props.variant]} ${sizeClasses[props.size]} ${roundedClass}`
 })
 </script> 
