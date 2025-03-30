@@ -1,9 +1,10 @@
-import { defineNuxtConfig } from 'nuxt/config'
 import tailwindcss from "@tailwindcss/vite";
 
+import { defineNuxtConfig } from 'nuxt/config'
+
 export default defineNuxtConfig({
-  devtools: { enabled: true },
   compatibilityDate: "2024-11-01",
+  devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [
