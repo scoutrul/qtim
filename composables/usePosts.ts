@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import type { Post, PostPreview, PostFull } from '../types/post'
+import type { PostPreview, PostFull } from '../types/post'
 
 export function usePosts() {
   const posts = ref<PostPreview[]>([])

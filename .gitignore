@@ -3,10 +3,11 @@ node_modules
 .pnp
 .pnp.js
 
-# Nuxt файлы
+# Nuxt и сборка
 .nuxt
 .output
 dist
+.cache
 
 # Логи
 logs
@@ -14,13 +15,40 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Локальные файлы окружения
+# Локальные файлы среды
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
+
+# Редакторы и IDE
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Тесты и покрытие
+coverage
+*.lcov
+.nyc_output
+
+# TypeScript
+*.tsbuildinfo
+
+# Временные файлы
+.temp
+.tmp
+.history
 
 # Кэш
 .npm
