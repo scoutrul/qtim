@@ -1,0 +1,27 @@
+# Зависимости
+node_modules
+.pnp
+.pnp.js
+
+# Nuxt файлы
+.nuxt
+.output
+dist
+
+# Логи
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Локальные файлы окружения
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Кэш
+.npm
+.eslintcache 
