@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ArticleCard from '@/components/article/ArticleCard.vue'
 import type { PostUI } from '@/types/post'
-import { GRID_CLASSES } from '@/constants/layout'
 
 interface Props {
   articles: PostUI[]
@@ -11,14 +10,6 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   loading: false
 })
-
-const gridClasses = [
-  GRID_CLASSES.BASE,
-  GRID_CLASSES.MOBILE,
-  GRID_CLASSES.TABLET,
-  GRID_CLASSES.DESKTOP,
-  GRID_CLASSES.LARGE
-]
 
 // Создаем пустые карточки для состояния загрузки
 const skeletonCards = Array.from({ length: 8 }, (_, index) => ({
@@ -31,7 +22,7 @@ const skeletonCards = Array.from({ length: 8 }, (_, index) => ({
 </script>
 
 <template>
-  <div :class="gridClasses">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-6 gap-x-8">
     <ArticleCard 
       v-for="article in loading ? skeletonCards : articles" 
       :key="article.id"

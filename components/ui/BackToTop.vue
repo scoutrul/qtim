@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 
 // Свойства компонента
 interface Props {
@@ -66,9 +69,9 @@ onUnmounted(() => {
           sizeClasses[size],
           color
         ]"
-        aria-label="Вернуться наверх"
+        :aria-label="t('common.scrollToTop')"
       >
-        Go
+        {{ t('common.scrollToTop') }}
       </button>
     </div>
   </transition>

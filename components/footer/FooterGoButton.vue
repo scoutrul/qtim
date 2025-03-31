@@ -18,6 +18,8 @@
 <script setup lang="ts">
 import Typography from '@/components/ui/Typography.vue'
 import { useContactModal } from '@/composables/useContactModal'
+import { useI18n } from '@/composables/useI18n'
 
 const { openModal } = useContactModal()
+const { t } = useI18n()
 </script> 

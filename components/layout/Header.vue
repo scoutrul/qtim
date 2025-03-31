@@ -1,20 +1,24 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from '../../composables/useI18n'
 import Logo from '@/components/ui/Logo.vue'
 import NavLink from '@/components/ui/NavLink.vue'
 import LanguageFlag from '@/components/ui/LanguageFlag.vue'
 import Button from '@/components/ui/Button.vue'
 import { useContactModal } from '@/composables/useContactModal'
 
+const { t } = useI18n()
+
 interface MenuItem {
   title: string
   path: string
+  translationKey: string
 }
 
 const menuItems: MenuItem[] = [
-  { title: 'Works', path: '/works' },
-  { title: 'About', path: '/about' }
+  { title: 'Works', path: '/works', translationKey: 'navigation.works' },
+  { title: 'About', path: '/about', translationKey: 'navigation.about' }
 ]
 
 const { openModal } = useContactModal()
@@ -118,7 +122,6 @@ watch(route, () => {
         
         <!-- Десктопное меню -->
         <div class="hidden sm:flex items-center">
-          <!-- Блок основного меню -->
           <nav class="flex items-center">
             <NavLink 
               v-for="(item, index) in menuItems" 
@@ -126,23 +129,21 @@ watch(route, () => {
               :href="item.path"
               :class="['font-tt-commons', index < menuItems.length - 1 ? 'nav-link-spacing' : '']"
             >
-              {{ item.title }}
+              {{ t(item.translationKey) }}
             </NavLink>
           </nav>
           
-          <!-- Отступ между блоками -->
           <div class="w-[91px]"></div>
           
-          <!-- Блок с переключателем языка и кнопкой -->
           <div class="flex items-center">
             <LanguageFlag class="mr-[16px]" />
             <Button 
               @click="handleOpenModal" 
               rounded 
               size="md" 
-              class="btn-lets-work h-[52px] w-[142px]"
+              class="btn-lets-work h-[52px] w-[142px] whitespace-nowrap"
             >
-              Let's&nbsp;work
+              {{ t('navigation.letsWork') }}
             </Button>
           </div>
         </div>
@@ -161,7 +162,7 @@ watch(route, () => {
               :href="item.path"
               class="text-2xl py-2 font-tt-commons"
             >
-              {{ item.title }}
+              {{ t(item.translationKey) }}
             </NavLink>
             
             <div class="mobile-menu-footer">
@@ -170,9 +171,9 @@ watch(route, () => {
                 @click="handleOpenModal" 
                 rounded 
                 size="lg" 
-                class="btn-lets-work w-full max-w-xs"
+                class="btn-lets-work w-full max-w-xs whitespace-nowrap"
               >
-                Let's&nbsp;work
+                {{ t('navigation.letsWork') }}
               </Button>
             </div>
           </nav>

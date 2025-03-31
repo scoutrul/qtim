@@ -1,47 +1,102 @@
 <script setup lang="ts">
-interface Props {
-  alt?: string
-  size?: 'sm' | 'md' | 'lg'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
+import { useI18n } from '../../composables/useI18n'
+
+const { currentLanguage, setLanguage } = useI18n()
+const isOpen = ref(false)
+
+interface Language {
+  code: 'en' | 'ru'
+  label: string
+  flag: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  alt: 'Change language',
-  size: 'md'
+const languages: Language[] = [
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'ru', label: 'Русский', flag: '🇷🇺' }
+]
+
+// Фильтруем языки, исключая текущий
+const availableLanguages = computed(() => 
+  languages.filter(lang => lang.code !== currentLanguage.value)
+)
+
+// Закрываем меню при клике вне компонента
+const handleClickOutside = (event: MouseEvent) => {
+  const target = event.target as HTMLElement
+  if (!target.closest('.language-switcher')) {
+    isOpen.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
 })
 
-// Фиксированный размер флага внутри в зависимости от размера кнопки
-const flagSizeClasses = {
-  sm: 'w-4 h-4',
-  md: 'w-6 h-6',
-  lg: 'w-8 h-8'
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
+
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value
 }
 
-// Размер кнопки
-const buttonSizeClasses = {
-  sm: 'w-10 h-10',
-  md: 'w-[52px] h-[52px]',
-  lg: 'w-16 h-16'
+const selectLanguage = (lang: 'en' | 'ru') => {
+  setLanguage(lang)
+  isOpen.value = false
 }
 </script>
 
 <template>
-  <div 
-    :class="`${buttonSizeClasses[size]} rounded-full overflow-hidden border-2 border-pagination-bg bg-white cursor-pointer flex items-center justify-center`"
-    :title="alt"
-  >
-    <div :class="`${flagSizeClasses[size]} overflow-hidden rounded-full`">
-      <svg width="100%" height="100%" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-        <clipPath id="circleClip">
-          <circle cx="30" cy="30" r="30" />
-        </clipPath>
-        <g clip-path="url(#circleClip)">
-          <rect width="60" height="60" fill="#012169" />
-          <path d="M0,0 L60,60 M60,0 L0,60" stroke="#fff" stroke-width="6" />
-          <path d="M30,0 L30,60 M0,30 L60,30" stroke="#fff" stroke-width="10" />
-          <path d="M30,0 L30,60 M0,30 L60,30" stroke="#C8102E" stroke-width="6" />
-          <path d="M0,0 L60,60 M60,0 L0,60" stroke="#C8102E" stroke-width="2" />
-        </g>
-      </svg>
-    </div>
+  <div class="language-switcher relative">
+    <!-- Кнопка с текущим языком -->
+    <button 
+      @click="toggleMenu"
+      class="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-white border-2 border-light-gray"
+      :class="{ 'ring-2 ring-purple-500': isOpen }"
+    >
+      <div class="w-6 h-6 rounded-full overflow-hidden">
+        <span class="block w-full h-full text-[24px] leading-none">{{ languages.find(lang => lang.code === currentLanguage)?.flag }}</span>
+      </div>
+    </button>
+
+    <!-- Выпадающее меню -->
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="transform scale-95 opacity-0"
+      enter-to-class="transform scale-100 opacity-100"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="transform scale-100 opacity-100"
+      leave-to-class="transform scale-95 opacity-0"
+    >
+      <div 
+        v-if="isOpen"
+        class="absolute top-full right-0 mt-2 bg-transparent"
+      >
+        <div class="flex flex-col gap-2">
+          <button
+            v-for="lang in availableLanguages"
+            :key="lang.code"
+            @click="selectLanguage(lang.code)"
+            class="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-white border-2 border-light-gray"
+          >
+            <div class="w-6 h-6 rounded-full overflow-hidden">
+              <span class="block w-full h-full text-[24px] leading-none">{{ lang.flag }}</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </Transition>
   </div>
-</template> 
+</template>
+
+<style scoped>
+.language-switcher {
+  z-index: 50;
+}
+
+/* Анимация при наведении на свитчер */
+.language-switcher:hover .language-switcher__dropdown {
+  display: block;
+}
+</style> 

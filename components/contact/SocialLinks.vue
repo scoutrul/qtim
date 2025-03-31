@@ -1,15 +1,19 @@
 <script setup lang="ts">
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
+
 // Список социальных сетей и ссылок
 const socialLinks = [
-  { name: 'Facebook', url: '#' },
-  { name: 'Instagram', url: '#' },
-  { name: 'Telegram', url: '#' }
+  { name: t('social.facebook'), url: '#' },
+  { name: t('social.instagram'), url: '#' },
+  { name: t('social.telegram'), url: '#' }
 ]
 
 const legalLinks = [
-  { name: 'Behance', url: '#' },
-  { name: 'LinkedIn', url: '#' },
-  { name: 'Privacy Policy', url: '#' }
+  { name: t('social.behance'), url: '#' },
+  { name: t('social.linkedin'), url: '#' },
+  { name: t('social.privacyPolicy'), url: '#' }
 ]
 </script>
 

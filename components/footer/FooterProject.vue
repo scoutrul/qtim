@@ -3,7 +3,7 @@
     <!-- Верхний блок с заголовком и проектом -->
     <div class="mb-16">
       <Typography 
-        text="Is there a project?" 
+        :text="t('footer.project.isThere')"
         variant="xs" 
         class="mb-[60px]"
         customClass="text-[11pt]"
@@ -17,4 +17,7 @@
 
 <script setup lang="ts">
 import Typography from '@/components/ui/Typography.vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 </script> 

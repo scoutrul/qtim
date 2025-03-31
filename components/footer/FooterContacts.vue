@@ -3,7 +3,7 @@
     <!-- Блок с основными контактами -->
     <div class="mb-[28px]">
       <Typography 
-        text="For all questions" 
+        :text="t('footer.contacts.forAllQuestions')"
         variant="h5" 
         tag="h3"
         weight="medium" 
@@ -25,7 +25,7 @@
     <!-- Офис в России -->
     <div class="mb-[28px]">
       <Typography 
-        text="Office in Russia" 
+        :text="t('footer.contacts.officeInRussia')"
         variant="h5" 
         tag="h3"
         weight="medium" 
@@ -50,7 +50,7 @@
     <!-- Офис в Дубае -->
     <div class="mb-[28px]">
       <Typography 
-        text="Office in Dubai" 
+        :text="t('footer.contacts.officeInDubai')"
         variant="h5" 
         tag="h3"
         weight="medium" 
@@ -77,6 +77,8 @@
 <script setup lang="ts">
 import Typography from '@/components/ui/Typography.vue'
 import { useContactModal } from '@/composables/useContactModal'
+import { useI18n } from '@/composables/useI18n'
 
 const { openModal } = useContactModal()
+const { t } = useI18n()
 </script> 

@@ -5,9 +5,12 @@ import Pagination from '@/components/ui/Pagination.vue'
 import type { PostUI } from '@/types/post'
 import Typography from '@/components/ui/Typography.vue'
 import { useScroll } from '@/composables/useScroll'
+import { useI18n } from '@/composables/useI18n'
+
+const { t } = useI18n()
 
 interface Props {
-  title: string
+  title?: string
   articles: PostUI[]
   itemsPerPage?: number
   isLoading?: boolean
@@ -16,12 +19,14 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: 'Articles',
+  title: undefined,
   itemsPerPage: 8,
   isLoading: false,
   hasError: false,
-  errorMessage: 'Ошибка загрузки. Попробуйте позже.'
+  errorMessage: undefined
 })
+
+const displayTitle = computed(() => props.title || t('common.articles'))
 
 const currentPage = ref(1)
 const totalPages = computed(() => {
@@ -37,6 +42,9 @@ const displayedArticles = computed(() => {
   return props.articles.slice(startIndex, endIndex)
 })
 
+// Используем вычисляемое свойство для сообщения об ошибке
+const displayErrorMessage = computed(() => props.errorMessage || t('errors.loading'))
+
 // Обработчик изменения страницы
 const handlePageChange = (page: number) => {
   currentPage.value = page
@@ -51,16 +59,16 @@ const handlePageChange = (page: number) => {
     <div class="container box-content">
       <!-- Заголовок секции -->
       <Typography 
-        text="Articles" 
+        :text="displayTitle"
         variant="h1" 
         tag="h2"
         weight="normal"
-        customClass="text-[68px] mb-8"
+        customClass="text-[68px] mb-[60px] leading-normal"
       />
       
       <!-- Сообщение об ошибке -->
       <div v-if="hasError" class="min-h-[40vh] flex justify-center items-center">
-        <div class="text-error text-xl font-tt-commons">{{ errorMessage }}</div>
+        <div class="text-error text-xl font-tt-commons">{{ displayErrorMessage }}</div>
       </div>
       
       <!-- Сетка статей -->

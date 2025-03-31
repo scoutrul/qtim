@@ -2,7 +2,7 @@
   <main>
     <!-- Секция статей со скелетонами при загрузке -->
     <ArticleSection 
-      title="Articles" 
+      :title="t('common.articles')" 
       :articles="processedPosts" 
       :items-per-page="postsPerPage"
       :is-loading="loading"
@@ -16,9 +16,13 @@
 import { computed, onMounted } from 'vue'
 import ArticleSection from '@/components/article/ArticleSection.vue'
 import { usePosts } from '@/composables/usePosts'
+import { useI18n } from '@/composables/useI18n'
 
 // Получаем данные и методы из композабла usePosts
 const { posts, loading, error, fetchPosts, postsPerPage } = usePosts()
+
+// Получаем переводы из композабла useI18n
+const { t } = useI18n()
 
 // Преобразуем данные из API в формат, который ожидает компонент ArticleSection
 const processedPosts = computed(() => {
