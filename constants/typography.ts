@@ -9,14 +9,14 @@ export const TYPOGRAPHY = {
     BODY: 'text-base text-gray-600',
     SMALL: 'text-sm text-gray-500',
     TINY: 'text-xs text-gray-400',
-    XS: 'text-[13px] text-gray-600'
+    XS: 'text-[13px] text-gray-600',
   },
   WEIGHTS: {
     LIGHT: 'font-light',
     NORMAL: 'font-normal',
     MEDIUM: 'font-medium',
-    BOLD: 'font-bold'
-  }
+    BOLD: 'font-bold',
+  },
 } as const
 
 export const VARIANT_TO_TAG: Record<string, string> = {
@@ -29,5 +29,5 @@ export const VARIANT_TO_TAG: Record<string, string> = {
   body: 'p',
   small: 'p',
   xs: 'p',
-  tiny: 'span'
-} as const 
+  tiny: 'span',
+} as const

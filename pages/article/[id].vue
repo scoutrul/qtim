@@ -3,45 +3,45 @@
     <div v-if="loading" class="container py-16 sm:py-20">
       <ArticleContentSkeleton />
     </div>
-    
-    <div v-else-if="error" class="container py-16 sm:py-20 min-h-[60vh] flex justify-center items-center">
+
+    <div
+      v-else-if="error"
+      class="container py-16 sm:py-20 min-h-[60vh] flex justify-center items-center"
+    >
       <div class="text-error text-xl">Ошибка загрузки статьи. Попробуйте позже.</div>
     </div>
-    
+
     <div v-else-if="post" class="container py-16 sm:py-20">
       <!-- Заголовок статьи -->
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-18 max-w-4xl">
         {{ post.title }}
       </h1>
-      
+
       <!-- Основное изображение -->
       <div class="mb-20 relative">
         <div class="aspect-[16/9] overflow-hidden rounded-lg">
-          <img 
+          <img
             v-if="!imageError && post.image"
-            :src="post.image" 
+            :src="post.image"
             :alt="post.title"
             loading="lazy"
+            class="w-full h-full object-cover"
+            :class="{ 'opacity-0': !imageLoaded }"
             @load="handleImageLoad"
             @error="handleImageError"
-            class="w-full h-full object-cover" 
-            :class="{'opacity-0': !imageLoaded}"
           />
-          
-          <Skeleton 
-            v-if="!imageLoaded && !imageError && post.image" 
-            class="absolute inset-0"
-          />
-          
-          <ImagePlaceholder 
-            v-if="imageError || !post.image" 
+
+          <Skeleton v-if="!imageLoaded && !imageError && post.image" class="absolute inset-0" />
+
+          <ImagePlaceholder
+            v-if="imageError || !post.image"
             :title="post.title"
             aspect-ratio="landscape"
             class="absolute inset-0"
           />
         </div>
       </div>
-      
+
       <!-- Контент статьи -->
       <ArticleContent :article="post" />
     </div>
@@ -49,39 +49,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import Skeleton from '@/components/ui/Skeleton.vue'
-import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
-import ArticleContentSkeleton from '@/components/article/ArticleContentSkeleton.vue'
-import ArticleContent from '@/components/article/ArticleContent.vue'
-import { usePosts } from '@/composables/usePosts'
+  import { ref, computed, onMounted } from 'vue'
+  import { useRoute } from 'vue-router'
+  import Skeleton from '@/components/ui/Skeleton.vue'
+  import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
+  import ArticleContentSkeleton from '@/components/article/ArticleContentSkeleton.vue'
+  import ArticleContent from '@/components/article/ArticleContent.vue'
+  import { usePosts } from '@/composables/usePosts'
 
-const route = useRoute()
-const articleId = computed(() => route.params.id as string)
-const { post, loading, error, fetchPostById } = usePosts()
+  const route = useRoute()
+  const articleId = computed(() => route.params.id as string)
+  const { post, loading, error, fetchPostById } = usePosts()
 
-// Статус загрузки изображения
-const imageLoaded = ref(false)
-const imageError = ref(false)
+  // Статус загрузки изображения
+  const imageLoaded = ref(false)
+  const imageError = ref(false)
 
-const handleImageLoad = () => {
-  imageLoaded.value = true
-}
+  const handleImageLoad = () => {
+    imageLoaded.value = true
+  }
 
-const handleImageError = () => {
-  imageError.value = true
-}
+  const handleImageError = () => {
+    imageError.value = true
+  }
 
-// Загружаем статью при монтировании компонента
-onMounted(async () => {
-  await fetchPostById(articleId.value)
-})
+  // Загружаем статью при монтировании компонента
+  onMounted(async () => {
+    await fetchPostById(articleId.value)
+  })
 </script>
 
 <style scoped>
-/* Анимация появления изображения */
-img {
-  transition: opacity 0.3s ease;
-}
-</style> 
+  /* Анимация появления изображения */
+  img {
+    transition: opacity 0.3s ease;
+  }
+</style>

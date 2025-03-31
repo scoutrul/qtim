@@ -14,6 +14,6 @@ export const useContactModal = () => {
   return {
     isContactModalOpen,
     openModal,
-    closeModal
+    closeModal,
   }
-} 
+}

@@ -8,14 +8,14 @@ export function usePosts() {
   const loading = ref(false)
   const currentPage = ref(1)
   const postsPerPage = ref(8) // 4 поста в строку, 2 строки
-  
+
   // Вычисляемое свойство для получения постов текущей страницы
   const paginatedPosts = computed(() => {
     const startIndex = (currentPage.value - 1) * postsPerPage.value
     const endIndex = startIndex + postsPerPage.value
     return posts.value.slice(startIndex, endIndex)
   })
-  
+
   // Общее количество страниц
   const totalPages = computed(() => {
     return Math.ceil(posts.value.length / postsPerPage.value)
@@ -25,8 +25,10 @@ export function usePosts() {
     loading.value = true
     try {
       // Добавляем искусственную задержку для демонстрации скелетонов
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      const response = await $fetch<Post[]>("https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/")
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const response = await $fetch<Post[]>(
+        'https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/'
+      )
       posts.value = response
     } catch (err) {
       error.value = err as Error
@@ -39,8 +41,10 @@ export function usePosts() {
     loading.value = true
     try {
       // Добавляем искусственную задержку для демонстрации скелетонов
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      const response = await $fetch<Post>(`https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/${id}`)
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const response = await $fetch<Post>(
+        `https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/${id}`
+      )
       post.value = response
     } catch (err) {
       error.value = err as Error
@@ -67,7 +71,7 @@ export function usePosts() {
       currentPage.value = page
     }
   }
-  
+
   // Смотрим за изменением текущей страницы при ручном выборе
   watch(currentPage, (newPage) => {
     if (newPage > totalPages.value) {
@@ -90,6 +94,6 @@ export function usePosts() {
     nextPage,
     prevPage,
     goToPage,
-    postsPerPage
+    postsPerPage,
   }
-} 
+}

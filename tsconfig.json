@@ -12,15 +12,10 @@
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "types": ["vite/client"]
+    "esModuleInterop": true
   },
   "vueCompilerOptions": {
     "target": 3
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.vue"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.vue"]
 }

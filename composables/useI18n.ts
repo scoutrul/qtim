@@ -1,6 +1,4 @@
 import { ref, onMounted } from 'vue'
-import { navigateTo } from 'nuxt/app'
-import { useRoute } from 'vue-router'
 
 type Language = 'en' | 'ru'
 
@@ -15,28 +13,28 @@ const translations = {
     common: {
       readMore: 'Read more',
       articles: 'Articles',
-      scrollToTop: 'Go'
+      scrollToTop: 'Go',
     },
     footer: {
       rights: 'All rights reserved',
       project: {
         title: 'Project',
         description: 'Your project description',
-        isThere: 'Is there a project?'
+        isThere: 'Is there a project?',
       },
       contacts: {
         title: 'Contacts',
         forAllQuestions: 'For all questions',
         officeInRussia: 'Office in Russia',
-        officeInDubai: 'Office in Dubai'
+        officeInDubai: 'Office in Dubai',
       },
-      goButton: 'Go!'
+      goButton: 'Go!',
     },
     about: {
-      description: 'Information about our company and team will be displayed here.'
+      description: 'Information about our company and team will be displayed here.',
     },
     works: {
-      description: 'Our portfolio and projects will be displayed here.'
+      description: 'Our portfolio and projects will be displayed here.',
     },
     social: {
       facebook: 'Facebook',
@@ -44,11 +42,11 @@ const translations = {
       telegram: 'Telegram',
       behance: 'Behance',
       linkedin: 'LinkedIn',
-      privacyPolicy: 'Privacy Policy'
+      privacyPolicy: 'Privacy Policy',
     },
     errors: {
-      loading: 'Loading error. Please try again later.'
-    }
+      loading: 'Loading error. Please try again later.',
+    },
   },
   ru: {
     navigation: {
@@ -60,28 +58,28 @@ const translations = {
     common: {
       readMore: 'Читать далее',
       articles: 'Статьи',
-      scrollToTop: 'Наверх'
+      scrollToTop: 'Наверх',
     },
     footer: {
       rights: 'Все права защищены',
       project: {
         title: 'Проект',
         description: 'Описание вашего проекта',
-        isThere: 'Есть проект?'
+        isThere: 'Есть проект?',
       },
       contacts: {
         title: 'Контакты',
         forAllQuestions: 'По всем вопросам',
         officeInRussia: 'Офис в России',
-        officeInDubai: 'Офис в Дубае'
+        officeInDubai: 'Офис в Дубае',
       },
-      goButton: 'Го!'
+      goButton: 'Го!',
     },
     about: {
-      description: 'Здесь будет отображаться информация о нашей компании и команде.'
+      description: 'Здесь будет отображаться информация о нашей компании и команде.',
     },
     works: {
-      description: 'Здесь будет отображаться наше портфолио и проекты.'
+      description: 'Здесь будет отображаться наше портфолио и проекты.',
     },
     social: {
       facebook: 'Фейсбук',
@@ -89,12 +87,12 @@ const translations = {
       telegram: 'Телеграм',
       behance: 'Беханс',
       linkedin: 'Линкедин',
-      privacyPolicy: 'Политика конфиденциальности'
+      privacyPolicy: 'Политика конфиденциальности',
     },
     errors: {
-      loading: 'Ошибка загрузки. Попробуйте позже.'
-    }
-  }
+      loading: 'Ошибка загрузки. Попробуйте позже.',
+    },
+  },
 }
 
 export const useI18n = () => {
@@ -109,11 +107,11 @@ export const useI18n = () => {
   const t = (key: string) => {
     const keys = key.split('.')
     let translation: any = translations[currentLanguage.value]
-    
+
     for (const k of keys) {
       translation = translation[k]
     }
-    
+
     return translation || key
   }
 
@@ -127,6 +125,6 @@ export const useI18n = () => {
   return {
     currentLanguage,
     setLanguage,
-    t
+    t,
   }
-} 
+}

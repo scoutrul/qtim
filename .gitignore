@@ -53,3 +53,5 @@ coverage
 # Кэш
 .npm
 .eslintcache 
+.vercel
+.cursorRules

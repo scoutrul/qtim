@@ -4,6 +4,6 @@ export const useScroll = () => {
   }
 
   return {
-    scrollToTop
+    scrollToTop,
   }
-} 
+}

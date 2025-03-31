@@ -1,31 +1,27 @@
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineNuxtConfig } from 'nuxt/config'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
-  
+
   // Автоматические импорты
   imports: {
-    dirs: [
-      'composables',
-      'utils',
-      'stores'
-    ]
+    dirs: ['composables', 'utils', 'stores'],
   },
-  
+
   // Глобальные компоненты
   components: [
     { path: '~/components/ui', prefix: '' },
-    { path: '~/components', pathPrefix: false }
+    { path: '~/components', pathPrefix: false },
   ],
-  
+
   // Настройка PostCSS для Tailwind
   postcss: {
     plugins: {
@@ -33,19 +29,17 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  
+
   // Настройка Vite
   vite: {
-    plugins: [
-      tsconfigPaths({ loose: true }),
-    ],
+    plugins: [tsconfigPaths({ loose: true })],
     resolve: {
       alias: {
-        '@': resolve(__dirname)
-      }
-    }
+        '@': resolve(__dirname),
+      },
+    },
   },
-  
+
   // Настройка TypeScript
   typescript: {
     strict: true,
@@ -54,28 +48,31 @@ export default defineNuxtConfig({
       compilerOptions: {
         baseUrl: '.',
         paths: {
-          '@/*': ['./*']
-        }
-      }
-    }
+          '@/*': ['./*'],
+        },
+      },
+    },
   },
-  
+
   // Алиасы путей
   alias: {
-    '@': resolve(__dirname)
+    '@': resolve(__dirname),
   },
-  
+
   // Настройка отображения ошибок
   app: {
     head: {
       htmlAttrs: {
-        lang: 'ru'
+        lang: 'ru',
       },
       title: 'QTIM',
       meta: [
-        { name: 'description', content: 'QTIM - профессиональная разработка проектов и digital-решений' }
-      ]
+        {
+          name: 'description',
+          content: 'QTIM - профессиональная разработка проектов и digital-решений',
+        },
+      ],
     },
-    pageTransition: { name: 'page', mode: 'out-in' }
-  }
+    pageTransition: { name: 'page', mode: 'out-in' },
+  },
 })

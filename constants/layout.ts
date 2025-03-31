@@ -1,14 +1,14 @@
 export const GRID = {
   GAP: {
     X: '2rem',
-    Y: '1.5rem'
+    Y: '1.5rem',
   },
   COLUMNS: {
     MOBILE: 1,
     TABLET: 2,
     DESKTOP: 3,
-    LARGE: 4
-  }
+    LARGE: 4,
+  },
 } as const
 
 export const GRID_CLASSES = {
@@ -16,5 +16,5 @@ export const GRID_CLASSES = {
   MOBILE: 'grid-cols-1',
   TABLET: 'sm:grid-cols-2',
   DESKTOP: 'lg:grid-cols-3',
-  LARGE: 'xl:grid-cols-4'
-} as const 
+  LARGE: 'xl:grid-cols-4',
+} as const

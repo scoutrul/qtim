@@ -6,7 +6,7 @@ module.exports = {
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
     './app.vue',
-    './error.vue'
+    './error.vue',
   ],
   theme: {
     container: {
@@ -14,7 +14,7 @@ module.exports = {
       padding: {
         DEFAULT: '1rem',
         sm: '2rem',
-        lg: '4rem'
+        lg: '4rem',
       },
       screens: {
         sm: '640px',
@@ -25,10 +25,10 @@ module.exports = {
       },
     },
     screens: {
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1216px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1216px',
       '2xl': '1216px',
     },
     extend: {
@@ -38,31 +38,31 @@ module.exports = {
         'dark-gray': '#333333',
         'medium-gray': '#888888',
         'light-gray': '#F5F5F5',
-        'black': '#101010',
-        'white': '#FFFFFF',
-        'error': '#FF5252',
-        'success': '#4CAF50',
-        'purple': '#6B3FA8',
+        black: '#101010',
+        white: '#FFFFFF',
+        error: '#FF5252',
+        success: '#4CAF50',
+        purple: '#6B3FA8',
         'light-purple': '#E2BEFF',
-        'blue': '#2964C7',
-        'mint': '#A8F0A8',
-        'gray': '#888888',
-        'navy': '#1F1F1F',
+        blue: '#2964C7',
+        mint: '#A8F0A8',
+        gray: '#888888',
+        navy: '#1F1F1F',
         'article-bg': '#F8F8F8',
         'bg-purple': '#E2BEFF',
         'pagination-bg': '#F3F3F3',
       },
       fontFamily: {
-        'sans': ['TT Commons', 'sans-serif'],
-        'display': ['Poppins', 'Inter', 'sans-serif'],
-        'body': ['Inter', 'sans-serif'],
+        sans: ['TT Commons', 'sans-serif'],
+        display: ['Poppins', 'Inter', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
         'tt-commons': ['Poppins', 'sans-serif'],
       },
       fontSize: {
-        'nav': '1rem',
-        'button': '1rem',
-        'logo': '1.5rem',
-        'xs': '13px',
+        nav: '1rem',
+        button: '1rem',
+        logo: '1.5rem',
+        xs: '13px',
         'heading-1': ['112px', { lineHeight: '1.1' }],
         'heading-2': ['72px', { lineHeight: '1.1' }],
         'heading-3': ['56px', { lineHeight: '1.2' }],
@@ -79,11 +79,11 @@ module.exports = {
         'nav-gap-mobile': '0.5rem',
       },
       borderRadius: {
-        'button': '0.5rem',
+        button: '0.5rem',
       },
       aspectRatio: {
         'article-img': '16/9',
-        'square': '1/1',
+        square: '1/1',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -99,17 +99,19 @@ module.exports = {
           },
         },
       },
-    }
+    },
   },
   plugins: [
     // Попытка загрузить плагин typography, но без падения в случае его отсутствия
-    function() {
+    (function () {
       try {
-        return require('@tailwindcss/typography');
+        return require('@tailwindcss/typography')
       } catch (e) {
-        console.warn('Warning: @tailwindcss/typography plugin is not installed. Typography styles will fallback to custom CSS.');
-        return {};
+        console.warn(
+          'Warning: @tailwindcss/typography plugin is not installed. Typography styles will fallback to custom CSS.'
+        )
+        return {}
       }
-    }(),
+    })(),
   ],
-} 
+}

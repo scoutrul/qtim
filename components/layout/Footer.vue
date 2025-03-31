@@ -4,7 +4,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2">
         <!-- Левая колонка -->
         <FooterProject />
-        
+
         <!-- Правая колонка -->
         <FooterContacts />
       </div>
@@ -14,18 +14,17 @@
         <SocialLinks />
       </div>
     </div>
-    
+
     <!-- Кнопка "Go" для прокрутки наверх (только для lg и больше) -->
     <div class="hidden lg:block">
       <FooterGoButton />
     </div>
-
   </footer>
 </template>
 
 <script setup lang="ts">
-import SocialLinks from '@/components/contact/SocialLinks.vue'
-import FooterProject from '@/components/footer/FooterProject.vue'
-import FooterContacts from '@/components/footer/FooterContacts.vue'
-import FooterGoButton from '@/components/footer/FooterGoButton.vue'
+  import SocialLinks from '@/components/contact/SocialLinks.vue'
+  import FooterProject from '@/components/footer/FooterProject.vue'
+  import FooterContacts from '@/components/footer/FooterContacts.vue'
+  import FooterGoButton from '@/components/footer/FooterGoButton.vue'
 </script>
