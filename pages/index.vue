@@ -16,17 +16,14 @@
 import { computed, onMounted } from 'vue'
 import ArticleSection from '@/components/article/ArticleSection.vue'
 import { usePosts } from '@/composables/usePosts'
-import type { DisplayArticle } from '@/types/post'
 
 // Получаем данные и методы из композабла usePosts
 const { posts, loading, error, fetchPosts, postsPerPage } = usePosts()
 
 // Преобразуем данные из API в формат, который ожидает компонент ArticleSection
-const processedPosts = computed<DisplayArticle[]>(() => {
+const processedPosts = computed(() => {
   return posts.value.map(post => ({
-    id: post.id,
-    title: post.title,
-    description: post.preview,
+    ...post,
     imageUrl: post.image || `/images/articles/placeholder-${Math.floor(Math.random() * 8) + 1}.jpg`,
     link: `/article/${post.id}`
   }))

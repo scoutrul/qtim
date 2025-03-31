@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import ArticleGrid from '@/components/article/ArticleGrid.vue'
-import ArticleCardSkeleton from '@/components/article/ArticleCardSkeleton.vue'
 import Pagination from '@/components/ui/Pagination.vue'
-import type { DisplayArticle } from '@/types/post'
+import type { PostUI } from '@/types/post'
+import Typography from '@/components/ui/Typography.vue'
+import { useScroll } from '@/composables/useScroll'
 
 interface Props {
   title: string
-  articles: DisplayArticle[]
+  articles: PostUI[]
   itemsPerPage?: number
   isLoading?: boolean
   hasError?: boolean
@@ -40,28 +41,34 @@ const displayedArticles = computed(() => {
 const handlePageChange = (page: number) => {
   currentPage.value = page
   // Прокрутка к началу статей при смене страницы
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  const { scrollToTop } = useScroll()
+  scrollToTop()
 }
 </script>
 
 <template>
-  <section class="article-section py-16 bg-white">
-    <div class="container">
-      <h2 class="text-4xl sm:text-5xl font-bold mb-8 sm:mb-12 font-tt-commons text-black">{{ title }}</h2>
+  <section class="article-section pt-[6.8rem] pb-[140px] bg-white">
+    <div class="container box-content">
+      <!-- Заголовок секции -->
+      <Typography 
+        text="Articles" 
+        variant="h1" 
+        tag="h2"
+        weight="normal"
+        customClass="text-[68px] mb-8"
+      />
       
       <!-- Сообщение об ошибке -->
       <div v-if="hasError" class="min-h-[40vh] flex justify-center items-center">
         <div class="text-error text-xl font-tt-commons">{{ errorMessage }}</div>
       </div>
       
-      <!-- Скелетоны при загрузке -->
-      <div v-else-if="isLoading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-        <ArticleCardSkeleton v-for="i in itemsPerPage" :key="i" />
-      </div>
-      
       <!-- Сетка статей -->
       <template v-else>
-        <ArticleGrid :articles="displayedArticles" />
+        <ArticleGrid 
+          :articles="displayedArticles" 
+          :loading="isLoading"
+        />
         
         <!-- Пагинация (если больше одной страницы) -->
         <Pagination 
@@ -70,7 +77,7 @@ const handlePageChange = (page: number) => {
           :total-pages="totalPages" 
           :show-prev-button="false"
           @update:page="handlePageChange" 
-          class="font-tt-commons"
+          class="font-tt-commons mt-[50px]"
         />
       </template>
     </div>

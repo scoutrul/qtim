@@ -23,9 +23,10 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+    <ContactModal />
   </div>
 </template>
 
 <script setup lang="ts">
-// Импорты не нужны, так как компоненты перенесены в layout
+import ContactModal from '@/components/contact/ContactModal.vue'
 </script>

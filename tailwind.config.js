@@ -20,8 +20,8 @@ module.exports = {
         sm: '640px',
         md: '768px',
         lg: '1024px',
-        xl: '1280px',
-        '2xl': '1440px',
+        xl: '1216px',
+        '2xl': '1216px',
       },
     },
     screens: {
@@ -53,7 +53,7 @@ module.exports = {
         'pagination-bg': '#F3F3F3',
       },
       fontFamily: {
-        'sans': ['Poppins', 'Inter', 'sans-serif'],
+        'sans': ['TT Commons', 'sans-serif'],
         'display': ['Poppins', 'Inter', 'sans-serif'],
         'body': ['Inter', 'sans-serif'],
         'tt-commons': ['Poppins', 'sans-serif'],
@@ -62,6 +62,7 @@ module.exports = {
         'nav': '1rem',
         'button': '1rem',
         'logo': '1.5rem',
+        'xs': '13px',
         'heading-1': ['112px', { lineHeight: '1.1' }],
         'heading-2': ['72px', { lineHeight: '1.1' }],
         'heading-3': ['56px', { lineHeight: '1.2' }],

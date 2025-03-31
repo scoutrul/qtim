@@ -82,4 +82,34 @@ body.overflow-hidden {
 .mobile-menu-leave-to {
   opacity: 0;
   transform: translateY(-10px);
+}
+
+/* Дополнительные утилиты */
+.mb-18 {
+  margin-bottom: 72px;
+}
+
+/* Глобальные утилиты */
+.btn-lets-work {
+  @apply font-tt-commons bg-black hover:bg-black/90 text-white text-[20px];
+}
+
+.nav-link-spacing {
+  @apply mr-[58px];
+}
+
+.mobile-menu-container {
+  @apply sm:hidden fixed inset-0 bg-white z-10 transform transition-transform duration-300 ease-in-out;
+}
+
+.mobile-menu-content {
+  @apply h-full pt-20 pb-6 px-4 flex flex-col;
+}
+
+.mobile-menu-nav {
+  @apply flex flex-col items-center gap-6 flex-grow;
+}
+
+.mobile-menu-footer {
+  @apply mt-auto flex flex-col items-center gap-4;
 } 

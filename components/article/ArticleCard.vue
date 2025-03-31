@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { ARTICLE_CARD, ARTICLE_CARD_IMAGE, ARTICLE_CARD_CONTENT } from '@/constants/sizes'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
+import ImageSkeleton from '@/components/ui/ImageSkeleton.vue'
+import Skeleton from '@/components/ui/Skeleton.vue'
 
 interface Props {
   title: string
   description: string
   imageUrl?: string
   link: string
+  loading?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  loading: false
+})
 
 // Отслеживание статуса загрузки изображения
 const imageLoaded = ref(false)
@@ -22,16 +28,47 @@ const handleImageError = () => {
 const handleImageLoad = () => {
   imageLoaded.value = true
 }
+
+// Проверяем, нужно ли показывать заглушку
+const shouldShowPlaceholder = computed(() => {
+  return !props.imageUrl || imageError.value
+})
+
+// Вычисляем стили для контейнера изображения
+const imageContainerStyle = computed(() => ({
+  width: ARTICLE_CARD_IMAGE.WIDTH,
+  height: ARTICLE_CARD_IMAGE.HEIGHT
+}))
+
+// Вычисляем стили для карточки
+const cardStyle = computed(() => ({
+  width: ARTICLE_CARD.WIDTH
+}))
+
+// Вычисляем стили для контента
+const contentStyle = computed(() => ({
+  width: ARTICLE_CARD_CONTENT.WIDTH
+}))
+
+// Классы для карточки с учетом состояния загрузки
+const cardClasses = computed(() => [
+  'group',
+  !props.loading && 'hover:-translate-y-[20px]',
+  'transition-all duration-300'
+])
 </script>
 
 <template>
-  <div class="w-[280px] group hover:-translate-y-[20px] transition-all duration-300">
+  <div :style="cardStyle" :class="cardClasses">
     <nuxt-link :to="link">
       <!-- Контейнер для изображения с фиксированным размером -->
-      <div class="relative w-[280px] h-[280px] bg-light-gray overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-300">
+      <div 
+        :style="imageContainerStyle"
+        class="relative bg-light-gray overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-300 mb-4"
+      >
         <!-- Изображение -->
         <img 
-          v-if="!imageError && props.imageUrl"
+          v-if="props.imageUrl && !imageError && !loading"
           :src="props.imageUrl" 
           :alt="props.title"
           loading="lazy"
@@ -42,32 +79,52 @@ const handleImageLoad = () => {
         />
         
         <!-- Скелетон при загрузке -->
-        <div 
-          v-if="!imageLoaded && !imageError && props.imageUrl" 
-          class="absolute inset-0 bg-light-gray animate-pulse"
-        ></div>
+        <ImageSkeleton
+          v-if="loading || (!imageLoaded && props.imageUrl && !imageError)" 
+          class="absolute inset-0"
+          :style="{
+            width: ARTICLE_CARD_IMAGE.WIDTH,
+            height: ARTICLE_CARD_IMAGE.HEIGHT
+          }"
+        />
         
         <!-- Заглушка при отсутствии изображения или ошибке -->
-        <div 
-          v-if="imageError || !props.imageUrl" 
-          class="absolute inset-0 flex items-center justify-center bg-light-gray"
-        >
-          <div class="text-dark-gray text-center p-4">
-            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="text-sm">{{ props.title }}</span>
-          </div>
-        </div>
+        <ImagePlaceholder
+          v-if="shouldShowPlaceholder && !loading"
+          :title="props.title"
+          class="absolute inset-0"
+          :style="{
+            width: ARTICLE_CARD_IMAGE.WIDTH,
+            height: ARTICLE_CARD_IMAGE.HEIGHT
+          }"
+        />
       </div>
     </nuxt-link>
     
     <!-- Контент карточки -->
-    <div class="p-4 w-[280px]">
+    <div :style="contentStyle" class="py-4">
       <nuxt-link :to="link">
-        <p class="text-dark-gray text-[20px] font-normal line-clamp-3 hover:text-bg-purple transition-colors duration-300">{{ props.description }}</p>
+        <template v-if="loading">
+          <!-- Скелетон для заголовка -->
+          <Skeleton class="h-[60px] mb-2" />
+          <!-- Скелетон для описания (3 строки) -->
+          <div class="space-y-2">
+            <Skeleton class="w-full" />
+            <Skeleton class="w-3/4" />
+            <Skeleton class="w-1/2" />
+          </div>
+        </template>
+        <template v-else>
+          <Typography 
+            :text="props.description" 
+            variant="h5" 
+            tag="h3"
+            weight="medium"
+            customClass="text-[20px] line-clamp-3"
+          />
+        </template>
       </nuxt-link>
-      <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div v-if="!loading" :class="['mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300']">
         <nuxt-link :to="link" class="text-bg-purple font-medium cursor-pointer">Read More</nuxt-link>
       </div>
     </div>
@@ -75,9 +132,17 @@ const handleImageLoad = () => {
 </template>
 
 <style scoped>
-.article-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+/* Стили для анимации загрузки изображения */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
 }
 </style> 

@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-start mt-12 sm:mt-16">
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
       <!-- Кнопки с номерами страниц -->
       <PaginationButton 
         v-for="page in visiblePageNumbers" 
@@ -11,7 +11,7 @@
       />
       
       <!-- Контейнер для навигационных кнопок -->
-      <div class="flex items-center gap-3 ml-1">
+      <div class="flex items-center gap-2 ml-1">
         <!-- Кнопка "Назад" -->
         <PaginationButton 
           v-if="currentPage > 1"

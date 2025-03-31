@@ -1,22 +1,23 @@
-<script setup lang="ts">
-import CircleButton from '@/components/ui/CircleButton.vue'
-
-const emit = defineEmits<{
-  click: []
-}>();
-
-const handleClick = () => {
-  emit('click')
-}
-</script>
-
 <template>
-  <div class="flex justify-center items-center my-10">
-    <CircleButton 
+  <div 
+    class="w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[300px] md:h-[300px] lg:w-[358px] lg:h-[358px] bg-black text-white rounded-full flex items-center justify-center cursor-pointer absolute left-1/2"
+    @click="openModal"
+    style="bottom: 0; overflow: visible; transform: translate(-50%, 40%);"
+  >
+    <Typography 
       text="Go" 
-      :size="358" 
-      halfCircle
-      @click="handleClick"
+      variant="h3" 
+      weight="light" 
+      class="transform -translate-y-1/4"
+      customClass="text-xl sm:text-2xl md:text-2xl lg:text-3xl"
+      style="transform: translateY(-40px); font-size: 20pt;"
     />
   </div>
-</template> 
+</template>
+
+<script setup lang="ts">
+import Typography from '@/components/ui/Typography.vue'
+import { useContactModal } from '@/composables/useContactModal'
+
+const { openModal } = useContactModal()
+</script> 

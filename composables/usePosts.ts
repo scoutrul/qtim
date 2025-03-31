@@ -1,9 +1,9 @@
 import { ref, computed, watch } from 'vue'
-import type { PostPreview, PostFull } from '@/types/post'
+import type { Post } from '@/types/post'
 
 export function usePosts() {
-  const posts = ref<PostPreview[]>([])
-  const post = ref<PostFull | null>(null)
+  const posts = ref<Post[]>([])
+  const post = ref<Post | null>(null)
   const error = ref<Error | null>(null)
   const loading = ref(false)
   const currentPage = ref(1)
@@ -26,7 +26,7 @@ export function usePosts() {
     try {
       // Добавляем искусственную задержку для демонстрации скелетонов
       await new Promise(resolve => setTimeout(resolve, 1500))
-      const response = await $fetch<PostPreview[]>("https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/")
+      const response = await $fetch<Post[]>("https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/")
       posts.value = response
     } catch (err) {
       error.value = err as Error
@@ -40,7 +40,7 @@ export function usePosts() {
     try {
       // Добавляем искусственную задержку для демонстрации скелетонов
       await new Promise(resolve => setTimeout(resolve, 1500))
-      const response = await $fetch<PostFull>(`https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/${id}`)
+      const response = await $fetch<Post>(`https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/${id}`)
       post.value = response
     } catch (err) {
       error.value = err as Error

@@ -5,8 +5,7 @@ import Logo from '@/components/ui/Logo.vue'
 import NavLink from '@/components/ui/NavLink.vue'
 import LanguageFlag from '@/components/ui/LanguageFlag.vue'
 import Button from '@/components/ui/Button.vue'
-import Modal from '../ui/Modal.vue'
-import ContactForm from '@/components/contact/ContactForm.vue'
+import { useContactModal } from '@/composables/useContactModal'
 
 interface MenuItem {
   title: string
@@ -18,7 +17,7 @@ const menuItems: MenuItem[] = [
   { title: 'About', path: '/about' }
 ]
 
-const isModalOpen = ref(false)
+const { openModal } = useContactModal()
 const isMobileMenuOpen = ref(false)
 const touchStartX = ref(0)
 const touchEndX = ref(0)
@@ -28,13 +27,9 @@ const isScrolled = ref(false)
 const router = useRouter()
 const route = useRoute()
 
-const openModal = () => {
-  isModalOpen.value = true
+const handleOpenModal = () => {
+  openModal()
   isMobileMenuOpen.value = false
-}
-
-const closeModal = () => {
-  isModalOpen.value = false
 }
 
 const toggleMobileMenu = () => {
@@ -129,7 +124,7 @@ watch(route, () => {
               v-for="(item, index) in menuItems" 
               :key="item.path" 
               :href="item.path"
-              :class="['font-tt-commons', index < menuItems.length - 1 ? 'mr-[58px]' : '']"
+              :class="['font-tt-commons', index < menuItems.length - 1 ? 'nav-link-spacing' : '']"
             >
               {{ item.title }}
             </NavLink>
@@ -141,18 +136,25 @@ watch(route, () => {
           <!-- Блок с переключателем языка и кнопкой -->
           <div class="flex items-center">
             <LanguageFlag class="mr-[16px]" />
-            <Button @click="openModal" rounded size="md" class="font-tt-commons bg-black hover:bg-black/90 text-white">Let's&nbsp;work</Button>
+            <Button 
+              @click="handleOpenModal" 
+              rounded 
+              size="md" 
+              class="btn-lets-work h-[52px] w-[142px]"
+            >
+              Let's&nbsp;work
+            </Button>
           </div>
         </div>
       </div>
       
       <!-- Мобильное меню -->
       <div 
-        class="sm:hidden fixed inset-0 bg-white z-10 transform transition-transform duration-300 ease-in-out"
+        class="mobile-menu-container"
         :class="isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'"
       >
-        <div class="h-full pt-20 pb-6 px-4 flex flex-col">
-          <nav class="flex flex-col items-center gap-6 flex-grow">
+        <div class="mobile-menu-content">
+          <nav class="mobile-menu-nav">
             <NavLink 
               v-for="item in menuItems" 
               :key="item.path" 
@@ -162,9 +164,14 @@ watch(route, () => {
               {{ item.title }}
             </NavLink>
             
-            <div class="mt-auto flex flex-col items-center gap-4">
+            <div class="mobile-menu-footer">
               <LanguageFlag size="lg" />
-              <Button @click="openModal" rounded size="lg" class="w-full max-w-xs font-tt-commons bg-black hover:bg-black/90 text-white">
+              <Button 
+                @click="handleOpenModal" 
+                rounded 
+                size="lg" 
+                class="btn-lets-work w-full max-w-xs"
+              >
                 Let's&nbsp;work
               </Button>
             </div>
@@ -172,27 +179,6 @@ watch(route, () => {
         </div>
       </div>
     </div>
-
-    <!-- Модальное окно с формой заявки -->
-    <Modal 
-      v-model="isModalOpen" 
-      @close="closeModal"
-      title="Связаться с нами"
-      size="sm"
-      :persistent="false"
-    >
-      <ContactForm @submit="closeModal" />
-      <template #footer>
-        <Button 
-          variant="underlined" 
-          size="lg" 
-          @click="closeModal"
-          class="mr-3 font-tt-commons"
-        >
-          Отмена
-        </Button>
-      </template>
-    </Modal>
   </header>
 </template>
 
