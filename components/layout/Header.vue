@@ -122,18 +122,28 @@ watch(route, () => {
         </button>
         
         <!-- Десктопное меню -->
-        <nav class="hidden sm:flex items-center gap-nav-gap">
-          <NavLink 
-            v-for="item in menuItems" 
-            :key="item.path" 
-            :href="item.path"
-            class="font-tt-commons"
-          >
-            {{ item.title }}
-          </NavLink>
-          <LanguageFlag />
-          <Button @click="openModal" rounded size="md" class="font-tt-commons bg-black hover:bg-black/90 text-white">Let's&nbsp;work</Button>
-        </nav>
+        <div class="hidden sm:flex items-center">
+          <!-- Блок основного меню -->
+          <nav class="flex items-center">
+            <NavLink 
+              v-for="(item, index) in menuItems" 
+              :key="item.path" 
+              :href="item.path"
+              :class="['font-tt-commons', index < menuItems.length - 1 ? 'mr-[58px]' : '']"
+            >
+              {{ item.title }}
+            </NavLink>
+          </nav>
+          
+          <!-- Отступ между блоками -->
+          <div class="w-[91px]"></div>
+          
+          <!-- Блок с переключателем языка и кнопкой -->
+          <div class="flex items-center">
+            <LanguageFlag class="mr-[16px]" />
+            <Button @click="openModal" rounded size="md" class="font-tt-commons bg-black hover:bg-black/90 text-white">Let's&nbsp;work</Button>
+          </div>
+        </div>
       </div>
       
       <!-- Мобильное меню -->

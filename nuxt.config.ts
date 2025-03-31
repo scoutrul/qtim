@@ -63,5 +63,19 @@ export default defineNuxtConfig({
   // Алиасы путей
   alias: {
     '@': resolve(__dirname)
+  },
+  
+  // Настройка отображения ошибок
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'ru'
+      },
+      title: 'QTIM',
+      meta: [
+        { name: 'description', content: 'QTIM - профессиональная разработка проектов и digital-решений' }
+      ]
+    },
+    pageTransition: { name: 'page', mode: 'out-in' }
   }
 })

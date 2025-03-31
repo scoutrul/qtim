@@ -20,16 +20,12 @@
       <meta property="twitter:description" content="Профессиональная разработка проектов и digital-решений" />
       <meta property="twitter:image" content="/images/og-image.jpg" />
     </Head>
-    <NuxtRouteAnnouncer />
-    <Header />
-    <NuxtPage />
-    <Footer />
-    <BackToTop />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 
 <script setup lang="ts">
-import Header from '@/components/layout/Header.vue'
-import Footer from '@/components/layout/Footer.vue'
-import BackToTop from '@/components/ui/BackToTop.vue'
+// Импорты не нужны, так как компоненты перенесены в layout
 </script>
