@@ -12,7 +12,6 @@ const props = defineProps<{
 const statusCode = computed(() => props.error?.statusCode || 500)
 const errorMessage = computed(() => props.error?.message || 'Что-то пошло не так')
 
-// Обработка клика по кнопке
 const handleError = () => {
   clearError({ redirect: '/' })
 }
@@ -20,6 +19,11 @@ const handleError = () => {
 
 <template>
   <NuxtLayout>
+    <Title>Ошибка {{ statusCode }} | QTIM</Title>
+    <Meta name="description" :content="`Ошибка ${statusCode}: ${errorMessage}`" />
+    <Meta property="og:title" :content="`Ошибка ${statusCode} | QTIM`" />
+    <Meta property="og:description" :content="`Ошибка ${statusCode}: ${errorMessage}`" />
+
     <div class="container mx-auto px-4 py-20 min-h-[70vh] flex items-center justify-center">
       <div class="text-center">
         <h1 class="text-7xl md:text-8xl lg:text-9xl font-bold text-black mb-4 font-tt-commons">

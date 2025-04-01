@@ -12,6 +12,11 @@
     </div>
 
     <div v-else-if="post" class="container py-16 sm:py-20">
+      <Title>{{ post.title }} | QTIM</Title>
+      <Meta name="description" :content="post.description || 'QTIM - профессиональная разработка проектов и digital-решений'" />
+      <Meta property="og:title" :content="post.title" />
+      <Meta property="og:description" :content="post.description" />
+
       <!-- Заголовок статьи -->
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-18 max-w-4xl">
         {{ post.title }}

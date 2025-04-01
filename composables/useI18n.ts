@@ -58,7 +58,7 @@ const translations = {
     common: {
       readMore: 'Читать далее',
       articles: 'Статьи',
-      scrollToTop: 'Наверх',
+      scrollToTop: 'Вверх',
     },
     footer: {
       rights: 'Все права защищены',
