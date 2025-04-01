@@ -94,8 +94,8 @@
 <template>
   <header
     :class="[
-      'py-4 sm:py-6 sticky top-0 bg-white z-40 w-full transition-shadow duration-300',
-      isScrolled ? 'shadow-sm' : '',
+      'sticky top-0 bg-white z-40 w-full transition-shadow duration-300',
+      isScrolled ? 'shadow-sm py-[0.6rem]' : 'py-4 sm:py-6',
     ]"
   >
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16">

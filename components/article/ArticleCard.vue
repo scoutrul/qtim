@@ -121,7 +121,7 @@
     </div>
 
     <!-- Контент карточки -->
-    <div class="w-full">
+    <div class="w-full max-w-[280px] m-auto">
       <template v-if="link">
         <nuxt-link :to="link">
           <template v-if="loading">

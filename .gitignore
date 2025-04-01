@@ -21,8 +21,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Локальные файлы среды
-.env
-.env.*
+# .env
+# .env.*
 !.env.example
 
 # Редакторы и IDE
@@ -64,3 +64,8 @@ coverage
 
 # Misc
 .fleet
+
+# Папки редакторов и инструментов разработки
+.vscode/
+.idea/
+*.sublime-*
