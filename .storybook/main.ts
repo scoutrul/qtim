@@ -10,11 +10,14 @@ const __dirname = dirname(__filename)
 
 /** @type { import('@storybook/vue3-vite').StorybookConfig } */
 const config = {
-  framework: '@storybook/vue3-vite',
+  framework: {
+    name: '@storybook/vue3-vite',
+    options: {},
+  },
   stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   core: {
-    builder: '@storybook/builder-vite',
+    disableTelemetry: true,
   },
   features: {
     storyStoreV7: true,
@@ -22,42 +25,21 @@ const config = {
     argTypeTargetsV7: true,
     warnOnLegacyHierarchySeparator: true,
   },
+  staticDirs: ['../public'],
   async viteFinal(config: UserConfig) {
-    return mergeConfig(config, {
-      resolve: {
-        alias: {
-          '@': resolve(__dirname, '../'),
-          '~': resolve(__dirname, '../'),
-        },
-      },
-      css: {
-        postcss: {
-          plugins: [
-            tailwindcss({
-              config: resolve(__dirname, '../tailwind.config.js'),
-            }),
-            autoprefixer(),
-          ],
-        },
-      },
+    return {
+      ...config,
       build: {
         target: 'esnext',
-        minify: 'terser',
-        terserOptions: {
-          compress: {
-            drop_console: true,
-          },
-        },
-        rollupOptions: {
-          output: {
-            manualChunks: {
-              vendor: ['vue', 'vue-router'],
-              storybook: ['@storybook/vue3', '@storybook/addon-essentials'],
-            },
-          },
+        sourcemap: false,
+      },
+      resolve: {
+        alias: {
+          '@': new URL('../', import.meta.url).pathname,
+          '~': new URL('../', import.meta.url).pathname,
         },
       },
-    })
+    }
   },
 }
 

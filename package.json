@@ -19,8 +19,10 @@
     "type-check": "vue-tsc --noEmit",
     "validate": "npm run format:check && npm run lint:check && npm run type-check",
     "prepare": "husky install",
-    "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build -o .output/public/storybook --config-dir .storybook --no-manager-cache"
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "serve-storybook": "serve storybook-static",
+    "vercel-build": "npm run build && npm run build-storybook"
   },
   "dependencies": {
     "@vueuse/core": "^13.0.0",
