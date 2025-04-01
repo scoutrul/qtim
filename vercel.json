@@ -1,14 +1,25 @@
 {
   "buildCommand": "npm run build && npm run build-storybook",
-  "outputDirectory": ".output/public",
+  "outputDirectory": ".output",
   "rewrites": [
     {
-      "source": "/storybook/(.*)",
-      "destination": "/storybook/$1"
+      "source": "/storybook/:path*",
+      "destination": "/storybook/:path*"
     },
     {
       "source": "/(.*)",
-      "destination": "/$1"
+      "destination": "/"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/storybook/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
     }
   ]
 }

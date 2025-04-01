@@ -1,12 +1,7 @@
-import type { UserConfig } from 'vite'
-import { mergeConfig } from 'vite'
-import { fileURLToPath } from 'url'
-import { dirname, resolve } from 'path'
-import tailwindcss from 'tailwindcss'
-import autoprefixer from 'autoprefixer'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const { mergeConfig } = require('vite')
+const path = require('path')
+const tailwindcss = require('tailwindcss')
+const autoprefixer = require('autoprefixer')
 
 /** @type { import('@storybook/vue3-vite').StorybookConfig } */
 const config = {
@@ -16,19 +11,19 @@ const config = {
   core: {
     builder: '@storybook/builder-vite',
   },
-  async viteFinal(config: UserConfig) {
+  async viteFinal(config) {
     return mergeConfig(config, {
       resolve: {
         alias: {
-          '@': resolve(__dirname, '../'),
-          '~': resolve(__dirname, '../'),
+          '@': path.resolve(__dirname, '../'),
+          '~': path.resolve(__dirname, '../'),
         },
       },
       css: {
         postcss: {
           plugins: [
             tailwindcss({
-              config: resolve(__dirname, '../tailwind.config.js'),
+              config: path.resolve(__dirname, '../tailwind.config.js'),
             }),
             autoprefixer(),
           ],
@@ -38,4 +33,4 @@ const config = {
   },
 }
 
-export default config
+module.exports = config 

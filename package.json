@@ -20,7 +20,7 @@
     "validate": "npm run format:check && npm run lint:check && npm run type-check",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o .output/public/storybook"
+    "build-storybook": "storybook build -o .output/public/storybook --config-dir .storybook"
   },
   "dependencies": {
     "@vueuse/core": "^13.0.0",
