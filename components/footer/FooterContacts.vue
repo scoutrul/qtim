@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-start mt-[72px] w-fit mx-auto">
+  <div class="flex flex-col items-start mt-[72px] w-full md:w-fit mx-auto">
     <!-- Блок с основными контактами -->
     <div class="mb-[28px]">
       <Typography

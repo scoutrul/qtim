@@ -56,7 +56,7 @@
 
 <template>
   <section class="article-section pt-[6.8rem] pb-[140px] bg-white">
-    <div class="container box-content">
+    <div class="container lg:box-content">
       <!-- Заголовок секции -->
       <Typography
         :text="displayTitle"
