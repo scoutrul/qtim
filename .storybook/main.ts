@@ -16,6 +16,12 @@ const config = {
   core: {
     builder: '@storybook/builder-vite',
   },
+  features: {
+    storyStoreV7: true,
+    buildStoriesJson: true,
+    argTypeTargetsV7: true,
+    warnOnLegacyHierarchySeparator: true,
+  },
   async viteFinal(config: UserConfig) {
     return mergeConfig(config, {
       resolve: {
@@ -32,6 +38,23 @@ const config = {
             }),
             autoprefixer(),
           ],
+        },
+      },
+      build: {
+        target: 'esnext',
+        minify: 'terser',
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              vendor: ['vue', 'vue-router'],
+              storybook: ['@storybook/vue3', '@storybook/addon-essentials'],
+            },
+          },
         },
       },
     })
