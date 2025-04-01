@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm run build && npm run build-storybook",
+  "outputDirectory": ".output/public",
+  "rewrites": [
+    {
+      "source": "/storybook/(.*)",
+      "destination": "/storybook/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ]
+}

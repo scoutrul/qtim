@@ -57,7 +57,7 @@
     >
       <div class="w-6 h-6 rounded-full overflow-hidden">
         <span class="block w-full h-full text-[24px] leading-none">{{
-          languages.find((lang) => lang.code === currentLanguage)?.flag
+          languages.find((lang: Language) => lang.code === currentLanguage)?.flag
         }}</span>
       </div>
     </button>

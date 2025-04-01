@@ -81,4 +81,8 @@ export default defineNuxtConfig({
       apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
     },
   },
+
+  modules: [
+    // здесь не должно быть '@nuxtjs/storybook'
+  ],
 })

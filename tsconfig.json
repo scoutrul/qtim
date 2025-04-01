@@ -37,7 +37,11 @@
     ".nuxt/nuxt.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.vue",
+    "components/**/*.vue",
+    "pages/**/*.vue",
+    "layouts/**/*.vue",
+    ".storybook/**/*",
+    "*.vue",
     "constants/article.ts",
     ".eslintrc.json"
   ]

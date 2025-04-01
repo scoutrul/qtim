@@ -1,0 +1,6 @@
+@import url('../assets/css/main.css');
+
+/* Дополнительные стили для Storybook */
+.sb-show-main {
+  font-family: 'Inter', sans-serif;
+} 

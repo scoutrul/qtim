@@ -99,19 +99,16 @@ const translations: Translations = {
   },
 }
 
-// Определяем тип для строк с путем до перевода
-type TranslationKey = string
+export function useI18n() {
+  const currentLanguage = ref<'en' | 'ru'>('en')
 
-export const useI18n = () => {
-  const currentLanguage = ref<Language>('en')
-
-  const setLanguage = (lang: Language) => {
+  const setLanguage = (lang: 'en' | 'ru') => {
     currentLanguage.value = lang
     localStorage.setItem('language', lang)
     window.location.reload()
   }
 
-  const t = (key: TranslationKey): string => {
+  const t = (key: string): string => {
     const parts = key.split('.')
 
     if (parts.length === 0) {
