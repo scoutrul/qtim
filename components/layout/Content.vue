@@ -1,13 +1,11 @@
 <template>
-  <main>
-    <slot></slot>
-  </main>
+  <div class="main-content">
+    <slot />
+  </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
-  export default defineComponent({
-    name: 'Content',
+<script setup lang="ts">
+  defineOptions({
+    name: 'MainContent',
   })
 </script>

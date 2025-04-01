@@ -3,7 +3,7 @@ export const useScroll = () => {
     setTimeout(() => {
       window.scrollTo({
         top: 0,
-        behavior: behavior || 'smooth'
+        behavior: behavior || 'smooth',
       })
     }, 0)
   }

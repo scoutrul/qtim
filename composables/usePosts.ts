@@ -1,5 +1,5 @@
 import { ref, computed, watch } from 'vue'
-import type { Post } from '@/types/post'
+import type { Post } from '../types/post'
 
 export function usePosts() {
   const posts = ref<Post[]>([])

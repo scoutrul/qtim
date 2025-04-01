@@ -13,7 +13,7 @@
   interface MenuItem {
     title: string
     path: string
-    translationKey: string
+    translationKey: 'navigation.works' | 'navigation.about' | 'navigation.letsWork'
   }
 
   const menuItems: MenuItem[] = [
@@ -27,6 +27,7 @@
   const touchEndX = ref(0)
   const minSwipeDistance = 100
   const isScrolled = ref(false)
+  const isMenuOpen = ref(false)
 
   const router = useRouter()
   const route = useRoute()
@@ -38,6 +39,7 @@
 
   const toggleMobileMenu = () => {
     isMobileMenuOpen.value = !isMobileMenuOpen.value
+    document.body.classList.toggle('mobile-menu-open', isMobileMenuOpen.value)
   }
 
   const handleScroll = () => {
@@ -66,6 +68,10 @@
     if (swipeDistance > minSwipeDistance && !isMobileMenuOpen.value) {
       isMobileMenuOpen.value = true
     }
+  }
+
+  const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value
   }
 
   onMounted(() => {

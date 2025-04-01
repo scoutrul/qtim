@@ -1,13 +1,7 @@
 <template>
   <component
     :is="tag"
-    :class="[
-      TYPOGRAPHY.BASE,
-      variantClasses,
-      customClass,
-      fontWeightClass,
-      colorClass
-    ]"
+    :class="[TYPOGRAPHY.BASE, variantClasses, customClass, fontWeightClass, colorClass]"
   >
     <slot v-if="$slots.default" />
     <template v-else>{{ text }}</template>

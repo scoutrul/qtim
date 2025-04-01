@@ -98,7 +98,6 @@
     } catch (err) {
       // Обработка ошибки
       error.value = 'Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.'
-      console.error(err)
     } finally {
       loading.value = false
     }

@@ -2,7 +2,11 @@ import { ref, onMounted } from 'vue'
 
 type Language = 'en' | 'ru'
 
-const translations = {
+type TranslationValue = string | { [key: string]: TranslationValue }
+type TranslationSection = { [key: string]: TranslationValue }
+type Translations = { [key: string]: TranslationSection }
+
+const translations: Translations = {
   en: {
     navigation: {
       works: 'Works',
@@ -95,6 +99,8 @@ const translations = {
   },
 }
 
+type TranslationKey = string & (keyof typeof translations.ru | `${keyof typeof translations.ru}.${string}`)
+
 export const useI18n = () => {
   const currentLanguage = ref<Language>('en')
 
@@ -104,15 +110,13 @@ export const useI18n = () => {
     window.location.reload()
   }
 
-  const t = (key: string) => {
-    const keys = key.split('.')
-    let translation: any = translations[currentLanguage.value]
-
-    for (const k of keys) {
-      translation = translation[k]
+  const t = (key: TranslationKey): string => {
+    const [section, ...path] = key.split('.')
+    if (path.length === 0) {
+      return translations.ru[section] as string || key
     }
-
-    return translation || key
+    const value = path.reduce((obj: any, key: string) => obj?.[key], translations.ru[section])
+    return typeof value === 'string' ? value : key
   }
 
   onMounted(() => {

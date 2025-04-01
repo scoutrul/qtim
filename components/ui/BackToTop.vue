@@ -46,9 +46,9 @@
     enter-from-class="opacity-0"
     leave-to-class="opacity-0"
   >
-    <div 
-      v-show="isVisible" 
-      class="fixed bottom-5 right-5 z-[100] block md:bottom-10 md:right-10" 
+    <div
+      v-show="isVisible"
+      class="fixed bottom-5 right-5 z-[100] block md:bottom-10 md:right-10"
       @click="handleScrollToTop"
     >
       <button

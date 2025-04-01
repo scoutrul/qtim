@@ -18,13 +18,4 @@ export const accentColors: Color[] = [
   { hex: '#0066FF', name: 'Blue' },
 ]
 
-export type ColorName =
-  | 'black'
-  | 'dark-gray'
-  | 'gray'
-  | 'light-gray'
-  | 'mint'
-  | 'purple'
-  | 'lavender'
-  | 'blue'
-  | 'pagination-bg'
+export type ColorName = 'black' | 'white' | 'primary' | 'secondary' | 'accent'

@@ -2,17 +2,29 @@
   import ArticleCard from '@/components/article/ArticleCard.vue'
   import type { PostUI } from '@/types/post'
 
-  interface Props {
-    articles: PostUI[]
-    loading?: boolean
+  interface SkeletonCard {
+    id: string
+    title: string
+    preview: string
+    link: string
+    image: undefined
   }
 
-  const props = withDefaults(defineProps<Props>(), {
-    loading: false,
-  })
+  const props = defineProps<{
+    articles: PostUI[]
+    loading?: boolean
+  }>()
+
+  const getArticlePreview = (article: PostUI | SkeletonCard) => {
+    return article.preview || (article as PostUI).description
+  }
+
+  const getArticleImage = (article: PostUI | SkeletonCard) => {
+    return (article as PostUI).imageUrl || (article as PostUI).image || ''
+  }
 
   // Создаем пустые карточки для состояния загрузки
-  const skeletonCards = Array.from({ length: 8 }, (_, index) => ({
+  const skeletonCards: SkeletonCard[] = Array.from({ length: 8 }, (_, index) => ({
     id: `skeleton-${index}`,
     title: '',
     preview: '',
@@ -27,8 +39,8 @@
       v-for="article in loading ? skeletonCards : articles"
       :key="article.id"
       :title="article.title"
-      :description="article.preview"
-      :image-url="article.image"
+      :description="getArticlePreview(article)"
+      :image-url="getArticleImage(article)"
       :link="article.link"
       :loading="loading"
     />

@@ -1,9 +1,13 @@
 {
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "types": ["vitest/globals", "node"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "~/*": ["./*"],
+      "@/*": ["./*"],
+      "#app": ["./node_modules/nuxt/dist/app"],
+      "#imports": ["./.nuxt/types/imports"]
     },
     "moduleResolution": "bundler",
     "target": "ESNext",
@@ -13,8 +17,7 @@
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "types": ["nuxt"]
+    "esModuleInterop": true
   },
   "vueCompilerOptions": {
     "target": 3

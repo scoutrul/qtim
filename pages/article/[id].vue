@@ -13,7 +13,12 @@
 
     <div v-else-if="post" class="container py-16 sm:py-20">
       <Title>{{ post.title }} | QTIM</Title>
-      <Meta name="description" :content="post.description || 'QTIM - профессиональная разработка проектов и digital-решений'" />
+      <Meta
+        name="description"
+        :content="
+          post.description || 'QTIM - профессиональная разработка проектов и digital-решений'
+        "
+      />
       <Meta property="og:title" :content="post.title" />
       <Meta property="og:description" :content="post.description" />
 
@@ -87,13 +92,17 @@
 
   onMounted(async () => {
     await fetchPostById(articleId.value)
-        scrollToTop('instant')
+    scrollToTop('instant')
   })
 
   // Добавляем после onMounted
-  watch(() => route.path, () => {
-    scrollToTop('instant')
-  }, { immediate: true })
+  watch(
+    () => route.path,
+    () => {
+      scrollToTop('instant')
+    },
+    { immediate: true }
+  )
 </script>
 
 <style scoped>

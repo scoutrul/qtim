@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { clearError } from 'nuxt/app'
+  import { computed } from 'vue'
+  import { clearError } from 'nuxt/app'
 
-const props = defineProps<{
-  error: {
-    statusCode: number
-    message: string
+  const props = defineProps<{
+    error: {
+      statusCode: number
+      message: string
+    }
+  }>()
+
+  const statusCode = computed(() => props.error?.statusCode || 500)
+  const errorMessage = computed(() => props.error?.message || 'Что-то пошло не так')
+
+  const handleError = () => {
+    clearError({ redirect: '/' })
   }
-}>()
-
-const statusCode = computed(() => props.error?.statusCode || 500)
-const errorMessage = computed(() => props.error?.message || 'Что-то пошло не так')
-
-const handleError = () => {
-  clearError({ redirect: '/' })
-}
 </script>
 
 <template>

@@ -15,6 +15,7 @@
 
   const props = withDefaults(defineProps<Props>(), {
     loading: false,
+    imageUrl: '',
   })
 
   // Отслеживание статуса загрузки изображения
@@ -59,7 +60,7 @@
 </script>
 
 <template>
-  <div 
+  <div
     class="article-card group relative w-full lg:w-[280px]"
     :class="cardClasses"
     :style="contentStyle"
@@ -106,10 +107,7 @@
     </nuxt-link>
 
     <!-- Контент карточки -->
-    <div 
-      class="w-full lg:w-[280px]"
-      :style="contentStyle"
-    >
+    <div class="w-full lg:w-[280px]" :style="contentStyle">
       <nuxt-link :to="link">
         <template v-if="loading">
           <!-- Скелетон для заголовка -->

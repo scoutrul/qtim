@@ -18,7 +18,7 @@
   })
 
   const emit = defineEmits<{
-    click: []
+    (e: 'click'): void
   }>()
 
   // Определяем классы для кнопки

@@ -3,6 +3,7 @@
 
   interface Props {
     color?: ColorName
+    variant?: 'light' | 'dark'
   }
 
   const props = withDefaults(defineProps<Props>(), {
