@@ -47,7 +47,7 @@
 
   // Вычисляем стили для контента
   const contentStyle = computed(() => ({
-    width: ARTICLE_CARD_CONTENT.WIDTH,
+    width: '100%',
   }))
 
   // Классы для карточки с учетом состояния загрузки
@@ -59,7 +59,10 @@
 </script>
 
 <template>
-  <div :style="cardStyle" :class="cardClasses">
+  <div 
+    class="article-card group relative w-full lg:w-[280px]"
+    :style="contentStyle"
+  >
     <nuxt-link :to="link">
       <!-- Контейнер для изображения с фиксированным размером -->
       <div
@@ -102,7 +105,10 @@
     </nuxt-link>
 
     <!-- Контент карточки -->
-    <div :style="contentStyle" class="py-4">
+    <div 
+      class="w-full lg:w-[280px]"
+      :style="contentStyle"
+    >
       <nuxt-link :to="link">
         <template v-if="loading">
           <!-- Скелетон для заголовка -->

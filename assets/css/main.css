@@ -112,4 +112,55 @@ body.overflow-hidden {
 
 .mobile-menu-footer {
   @apply mt-auto flex flex-col items-center gap-4;
+}
+
+/* Блокировка альбомной ориентации только на мобильных устройствах */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  body::before {
+    content: "Пожалуйста, поверните устройство вертикально";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+  }
+  body > * {
+    display: none;
+  }
+}
+
+/* Оптимизация для портретной ориентации на мобильных */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  html {
+    height: 100vh;
+    overflow: hidden;
+  }
+  body {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+/* Глобальная анимация пульсации для скелетонов */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 } 

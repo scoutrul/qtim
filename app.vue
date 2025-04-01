@@ -24,7 +24,7 @@
       { rel: 'apple-touch-icon', href: '/favicon.svg' }
     ],
     meta: [
-      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover, orientation=portrait' },
       { name: 'theme-color', content: '#8B5CF6' },
       { 
         name: 'description',

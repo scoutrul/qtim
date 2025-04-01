@@ -13,5 +13,6 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "orientation": "portrait"
 } 
