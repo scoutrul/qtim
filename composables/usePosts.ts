@@ -1,5 +1,8 @@
 import { ref, computed, watch } from 'vue'
-import type { Post } from '../types/post'
+import type { Post } from '@/types/post'
+import { API_CONFIG } from '@/config/api'
+import { fetchWithTimeout, ApiError } from '@/utils/api'
+import { ARTICLE_PAGE_SIZE } from '@/constants/article'
 
 export function usePosts() {
   const posts = ref<Post[]>([])
@@ -7,7 +10,7 @@ export function usePosts() {
   const error = ref<Error | null>(null)
   const loading = ref(false)
   const currentPage = ref(1)
-  const postsPerPage = ref(8) // 4 поста в строку, 2 строки
+  const postsPerPage = ref(ARTICLE_PAGE_SIZE)
 
   // Вычисляемое свойство для получения постов текущей страницы
   const paginatedPosts = computed(() => {
@@ -23,15 +26,15 @@ export function usePosts() {
 
   const fetchPosts = async () => {
     loading.value = true
+    error.value = null
     try {
-      // Добавляем искусственную задержку для демонстрации скелетонов
       await new Promise((resolve) => setTimeout(resolve, 1500))
-      const response = await $fetch<Post[]>(
-        'https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/'
+      const response = await fetchWithTimeout<Post[]>(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.posts}`
       )
       posts.value = response
     } catch (err) {
-      error.value = err as Error
+      error.value = err instanceof ApiError ? err : new Error('Failed to fetch posts')
     } finally {
       loading.value = false
     }
@@ -39,15 +42,15 @@ export function usePosts() {
 
   const fetchPostById = async (id: string) => {
     loading.value = true
+    error.value = null
     try {
-      // Добавляем искусственную задержку для демонстрации скелетонов
       await new Promise((resolve) => setTimeout(resolve, 1500))
-      const response = await $fetch<Post>(
-        `https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/${id}`
+      const response = await fetchWithTimeout<Post>(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.post(id)}`
       )
       post.value = response
     } catch (err) {
-      error.value = err as Error
+      error.value = err instanceof ApiError ? err : new Error('Failed to fetch post')
     } finally {
       loading.value = false
     }

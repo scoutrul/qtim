@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-  import { useRouter, useRoute } from 'vue-router'
-  import { useI18n } from '../../composables/useI18n'
+  import { useRoute } from 'vue-router'
+  import { useI18n } from '@/composables/useI18n'
   import Logo from '@/components/ui/Logo.vue'
   import NavLink from '@/components/ui/NavLink.vue'
   import LanguageFlag from '@/components/ui/LanguageFlag.vue'
@@ -27,9 +27,7 @@
   const touchEndX = ref(0)
   const minSwipeDistance = 100
   const isScrolled = ref(false)
-  const isMenuOpen = ref(false)
 
-  const router = useRouter()
   const route = useRoute()
 
   const handleOpenModal = () => {
@@ -70,10 +68,6 @@
     }
   }
 
-  const toggleMenu = () => {
-    isMenuOpen.value = !isMenuOpen.value
-  }
-
   onMounted(() => {
     document.addEventListener('touchstart', handleTouchStart, { passive: true })
     document.addEventListener('touchend', handleTouchEnd, { passive: true })
@@ -106,7 +100,7 @@
   >
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16">
       <div class="flex items-center justify-between">
-        <Logo class="cursor-pointer z-20" @click="$router.push('/')" />
+        <Logo variant="dark" class="cursor-pointer z-20" @click="$router.push('/')" />
 
         <!-- Гамбургер меню для мобильных -->
         <button

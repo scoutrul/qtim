@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
-  import { useI18n } from '../../composables/useI18n'
+  import { useI18n } from '@/composables/useI18n'
 
   const { currentLanguage, setLanguage } = useI18n()
   const isOpen = ref(false)

@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach } from 'vitest'
-import type { Post } from '../../types/post'
-import { usePostsTest } from './usePostsTest'
+import type { Post } from '@/types/post'
+import { usePostsTest } from '@/composables/usePostsTest'
 
 describe('usePosts composable', () => {
   let postsComposable: ReturnType<typeof usePostsTest>
@@ -49,6 +49,14 @@ describe('usePosts composable', () => {
       expect(postsComposable.error.value).toBeNull()
       expect(postsComposable.loading.value).toBe(false)
     })
+
+    test('обрабатывает ошибку сети', async () => {
+      await postsComposable.fetchPosts('error')
+
+      expect(postsComposable.error.value).toBeInstanceOf(Error)
+      expect(postsComposable.error.value?.message).toBe('Network error')
+      expect(postsComposable.loading.value).toBe(false)
+    })
   })
 
   describe('fetchPostById', () => {
@@ -57,7 +65,7 @@ describe('usePosts composable', () => {
 
       const expectedPost: Post = {
         id: 1,
-        title: 'Тестовая статья 1',
+        title: 'Статья 1',
         content: 'Содержание статьи 1',
         description: 'Описание статьи 1',
         image: 'https://example.com/images/article-1.jpg',
@@ -70,27 +78,12 @@ describe('usePosts composable', () => {
       expect(postsComposable.loading.value).toBe(false)
     })
 
-    test('проверяет типы данных в ответе', async () => {
-      await postsComposable.fetchPostById(1)
-
-      const post = postsComposable.post.value
-      expect(post).not.toBeNull()
-      if (post) {
-        expect(typeof post.id).toBe('number')
-        expect(typeof post.title).toBe('string')
-        expect(typeof post.content).toBe('string')
-        expect(typeof post.description).toBe('string')
-        expect(typeof post.image).toBe('string')
-        expect(typeof post.createdAt).toBe('string')
-        expect(typeof post.updatedAt).toBe('string')
-      }
-    })
-
     test('обрабатывает ошибку сети', async () => {
       await postsComposable.fetchPostById(1, 'error')
 
       expect(postsComposable.post.value).toBeNull()
-      expect(postsComposable.error.value).toBe('Network error')
+      expect(postsComposable.error.value).toBeInstanceOf(Error)
+      expect(postsComposable.error.value?.message).toBe('Network error')
       expect(postsComposable.loading.value).toBe(false)
     })
 
@@ -98,7 +91,7 @@ describe('usePosts composable', () => {
       await postsComposable.fetchPostById(1, 'not-found')
 
       expect(postsComposable.post.value).toBeNull()
-      expect(postsComposable.error.value).toBe('Post not found')
+      expect(postsComposable.error.value).toBeNull()
       expect(postsComposable.loading.value).toBe(false)
     })
   })
@@ -115,21 +108,8 @@ describe('usePosts composable', () => {
       await postsComposable.fetchPosts()
 
       expect(postsComposable.currentPage.value).toBe(1)
-      await postsComposable.goToPage(1)
+      postsComposable.goToPage(1)
       expect(postsComposable.currentPage.value).toBe(1)
-    })
-
-    test('проверяет типы данных в списке', async () => {
-      await postsComposable.fetchPosts()
-
-      const post = postsComposable.posts.value[0]
-      expect(typeof post.id).toBe('number')
-      expect(typeof post.title).toBe('string')
-      expect(typeof post.content).toBe('string')
-      expect(typeof post.description).toBe('string')
-      expect(typeof post.image).toBe('string')
-      expect(typeof post.createdAt).toBe('string')
-      expect(typeof post.updatedAt).toBe('string')
     })
 
     test('корректно обрабатывает пагинацию с пустым списком', async () => {

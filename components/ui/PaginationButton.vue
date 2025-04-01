@@ -41,17 +41,6 @@
     return `${baseClasses} bg-pagination-bg text-black hover:bg-white hover:text-black hover:border-pagination-bg border-pagination-bg`
   })
 
-  // Содержимое кнопки
-  const buttonContent = computed(() => {
-    if (props.isArrow) {
-      return props.direction === 'next'
-        ? '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>'
-        : '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>'
-    }
-
-    return props.page !== undefined ? props.page : ''
-  })
-
   // Обработчик клика по кнопке
   const handleClick = () => {
     if (!props.disabled) {

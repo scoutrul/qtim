@@ -1,61 +1,60 @@
 <script setup lang="ts">
   import { computed } from 'vue'
-  import { clearError } from 'nuxt/app'
 
-  const props = defineProps<{
+  interface ErrorObject {
+    statusCode?: number
+    message?: string
+  }
+
+  const props = defineProps({
     error: {
-      statusCode: number
-      message: string
-    }
-  }>()
+      type: Object as () => ErrorObject,
+      required: true,
+    },
+  })
 
-  const statusCode = computed(() => props.error?.statusCode || 500)
-  const errorMessage = computed(() => props.error?.message || 'Что-то пошло не так')
+  const statusCode = computed(() => {
+    return props.error.statusCode || 404
+  })
 
-  const handleError = () => {
-    clearError({ redirect: '/' })
+  const errorMessage = computed(() => {
+    return props.error.message || 'Произошла ошибка при загрузке'
+  })
+
+  const handleError = async () => {
+    await clearError()
+    await navigateTo('/')
   }
 </script>
 
 <template>
-  <NuxtLayout>
-    <Title>Ошибка {{ statusCode }} | QTIM</Title>
-    <Meta name="description" :content="`Ошибка ${statusCode}: ${errorMessage}`" />
-    <Meta property="og:title" :content="`Ошибка ${statusCode} | QTIM`" />
-    <Meta property="og:description" :content="`Ошибка ${statusCode}: ${errorMessage}`" />
-
-    <div class="container mx-auto px-4 py-20 min-h-[70vh] flex items-center justify-center">
-      <div class="text-center">
-        <h1 class="text-7xl md:text-8xl lg:text-9xl font-bold text-black mb-4 font-tt-commons">
-          {{ statusCode }}
-        </h1>
-        <p class="text-2xl md:text-3xl font-light text-black mb-8 font-tt-commons">
-          {{ errorMessage }}
-        </p>
-        <button
-          class="inline-block bg-black text-white py-3 px-8 rounded-xl hover:bg-black/90 transition-colors duration-300 font-tt-commons"
-          @click="handleError"
-        >
-          Вернуться на главную
-        </button>
-      </div>
+  <div class="h-screen flex flex-col items-center justify-center bg-white">
+    <div class="container mx-auto px-4 py-8 text-center animate-fade-in">
+      <h1 class="text-heading-4 mb-4 text-purple">{{ statusCode }}</h1>
+      <h2 class="text-heading-5 mb-6 text-gray-800">{{ errorMessage }}</h2>
+      <button
+        class="bg-primary text-white py-2 px-6 rounded-button hover:bg-opacity-90 transition"
+        @click="handleError"
+      >
+        <span class="font-medium">Вернуться на главную</span>
+      </button>
     </div>
-  </NuxtLayout>
+  </div>
 </template>
 
 <style scoped>
-  /* Анимация для заголовка */
-  h1 {
-    animation: pulse 2s infinite ease-in-out;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
   }
 </style>

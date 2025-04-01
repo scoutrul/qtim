@@ -8,6 +8,8 @@ node_modules
 .output
 dist
 .cache
+.husky
+.vercel
 
 # Логи
 logs
@@ -55,3 +57,10 @@ coverage
 .eslintcache 
 .vercel
 .cursorRules
+
+# Nuxt dev/build outputs
+.data
+.nitro
+
+# Misc
+.fleet

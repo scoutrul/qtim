@@ -17,7 +17,18 @@
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true
   },
   "vueCompilerOptions": {
     "target": 3
@@ -26,6 +37,8 @@
     ".nuxt/nuxt.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.vue"
+    "**/*.vue",
+    "constants/article.ts",
+    ".eslintrc.json"
   ]
 }

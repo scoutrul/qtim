@@ -59,8 +59,9 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, onBeforeMount, onMounted, watch } from 'vue'
+  import { ref, computed, onMounted, watch } from 'vue'
   import { useRoute } from 'vue-router'
+  import type { Post } from '@/types/post'
   import Skeleton from '@/components/ui/Skeleton.vue'
   import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
   import ArticleContentSkeleton from '@/components/article/ArticleContentSkeleton.vue'
@@ -68,9 +69,13 @@
   import { usePosts } from '@/composables/usePosts'
   import { useScroll } from '@/composables/useScroll'
 
+  definePageMeta({
+    name: 'article-id',
+  })
+
+  // Инициализируем все необходимые composables внутри setup
   const route = useRoute()
   const articleId = computed(() => route.params.id as string)
-  const { post, loading, error, fetchPostById } = usePosts()
   const { scrollToTop } = useScroll()
 
   // Статус загрузки изображения
@@ -85,23 +90,36 @@
     imageError.value = true
   }
 
-  // Используем onBeforeMount вместо onMounted
-  onBeforeMount(() => {
+  // Используем composable для постов
+  const { post, loading, error } = usePosts()
+
+  // Правильная загрузка данных для SSR
+  const { data } = await useFetch<Post>(
+    `${useRuntimeConfig().public.apiBaseUrl}/posts/${articleId.value}`,
+    {
+      transform: (response: Post) => response,
+      onResponseError(context) {
+        error.value = new Error(context.error?.message || 'Failed to fetch post')
+      },
+    }
+  )
+
+  // Устанавливаем данные в post после загрузки
+  if (data.value) {
+    post.value = data.value
+  }
+
+  // Скролл после загрузки на клиенте
+  onMounted(() => {
     scrollToTop('instant')
   })
 
-  onMounted(async () => {
-    await fetchPostById(articleId.value)
-    scrollToTop('instant')
-  })
-
-  // Добавляем после onMounted
+  // Следим за изменением пути
   watch(
     () => route.path,
     () => {
       scrollToTop('instant')
-    },
-    { immediate: true }
+    }
   )
 </script>
 

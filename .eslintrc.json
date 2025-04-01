@@ -7,16 +7,36 @@
   "extends": [
     "@nuxtjs/eslint-config-typescript",
     "plugin:vue/vue3-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:prettier/recommended"
   ],
   "plugins": ["@typescript-eslint", "prettier"],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "project": ["./tsconfig.json"],
+    "extraFileExtensions": [".vue"]
+  },
+  "ignorePatterns": ["tailwind.config.js"],
   "rules": {
     "vue/script-setup-uses-vars": "error",
     "vue/multi-word-component-names": "off",
     "vue/no-multiple-template-root": "off",
+    "vue/component-api-style": ["error", ["script-setup"]],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/no-misused-promises": "error",
+    "@typescript-eslint/await-thenable": "error",
+    "@typescript-eslint/no-unnecessary-type-assertion": "error",
+    "@typescript-eslint/restrict-template-expressions": "error",
+    "@typescript-eslint/unbound-method": "error",
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-    "vue/component-api-style": ["error", ["script-setup"]]
+    "no-void": ["error", { "allowAsStatement": true }]
   }
 }

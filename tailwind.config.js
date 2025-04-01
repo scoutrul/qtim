@@ -1,3 +1,4 @@
+/* eslint-disable */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -101,17 +102,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    // Попытка загрузить плагин typography, но без падения в случае его отсутствия
-    (function () {
-      try {
-        return require('@tailwindcss/typography')
-      } catch (e) {
-        console.warn(
-          'Warning: @tailwindcss/typography plugin is not installed. Typography styles will fallback to custom CSS.'
-        )
-        return {}
-      }
-    })(),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 }

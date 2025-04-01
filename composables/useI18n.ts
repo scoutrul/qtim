@@ -4,7 +4,7 @@ type Language = 'en' | 'ru'
 
 type TranslationValue = string | { [key: string]: TranslationValue }
 type TranslationSection = { [key: string]: TranslationValue }
-type Translations = { [key: string]: TranslationSection }
+type Translations = { [key in Language]: TranslationSection }
 
 const translations: Translations = {
   en: {
@@ -99,7 +99,8 @@ const translations: Translations = {
   },
 }
 
-type TranslationKey = string & (keyof typeof translations.ru | `${keyof typeof translations.ru}.${string}`)
+// Определяем тип для строк с путем до перевода
+type TranslationKey = string
 
 export const useI18n = () => {
   const currentLanguage = ref<Language>('en')
@@ -111,11 +112,32 @@ export const useI18n = () => {
   }
 
   const t = (key: TranslationKey): string => {
-    const [section, ...path] = key.split('.')
-    if (path.length === 0) {
-      return translations.ru[section] as string || key
+    const parts = key.split('.')
+
+    if (parts.length === 0) {
+      return key
     }
-    const value = path.reduce((obj: any, key: string) => obj?.[key], translations.ru[section])
+
+    const section = parts[0]
+    const currentTranslations = translations[currentLanguage.value]
+
+    if (parts.length === 1) {
+      const value = currentTranslations[section]
+      return typeof value === 'string' ? value : key
+    }
+
+    let value: TranslationValue = currentTranslations[section]
+
+    for (let i = 1; i < parts.length; i++) {
+      if (typeof value !== 'object' || value === null) {
+        return key
+      }
+      value = value[parts[i]]
+      if (value === undefined) {
+        return key
+      }
+    }
+
     return typeof value === 'string' ? value : key
   }
 

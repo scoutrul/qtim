@@ -1,22 +1,29 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue'
-  import { ARTICLE_CARD, ARTICLE_CARD_IMAGE, ARTICLE_CARD_CONTENT } from '@/constants/sizes'
+  import { ARTICLE_SKELETON } from '@/constants/article'
   import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
   import ImageSkeleton from '@/components/ui/ImageSkeleton.vue'
   import Skeleton from '@/components/ui/Skeleton.vue'
+  import Typography from '@/components/ui/Typography.vue'
 
-  interface Props {
-    title: string
-    description: string
-    imageUrl?: string
-    link: string
-    loading?: boolean
-  }
+  const props = withDefaults(
+    defineProps<{
+      title?: string
+      description?: string
+      imageUrl?: string
+      link?: string
+      loading?: boolean
+    }>(),
+    {
+      title: '',
+      description: '',
+      imageUrl: '',
+      link: '',
+      loading: false,
+    }
+  )
 
-  const props = withDefaults(defineProps<Props>(), {
-    loading: false,
-    imageUrl: '',
-  })
+  const { title, description, imageUrl, link, loading } = props
 
   // Отслеживание статуса загрузки изображения
   const imageLoaded = ref(false)
@@ -32,105 +39,139 @@
 
   // Проверяем, нужно ли показывать заглушку
   const shouldShowPlaceholder = computed(() => {
-    return !props.imageUrl || imageError.value
+    return !imageUrl || imageError.value
   })
-
-  // Вычисляем стили для контейнера изображения
-  const imageContainerStyle = computed(() => ({
-    width: ARTICLE_CARD_IMAGE.WIDTH,
-    height: ARTICLE_CARD_IMAGE.HEIGHT,
-  }))
-
-  // Вычисляем стили для карточки
-  const cardStyle = computed(() => ({
-    width: ARTICLE_CARD.WIDTH,
-  }))
-
-  // Вычисляем стили для контента
-  const contentStyle = computed(() => ({
-    width: '100%',
-  }))
 
   // Классы для карточки с учетом состояния загрузки
   const cardClasses = computed(() => [
     'group',
-    !props.loading && 'hover:-translate-y-[20px]',
+    !loading && 'hover:-translate-y-[20px]',
     'transition-all duration-300',
   ])
 </script>
 
 <template>
-  <div
-    class="article-card group relative w-full lg:w-[280px]"
-    :class="cardClasses"
-    :style="contentStyle"
-  >
-    <nuxt-link :to="link">
-      <!-- Контейнер для изображения с фиксированным размером -->
-      <div
-        :style="imageContainerStyle"
-        class="relative bg-light-gray overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-300 mb-4"
-      >
-        <!-- Изображение -->
-        <img
-          v-if="props.imageUrl && !imageError && !loading"
-          :src="props.imageUrl"
-          :alt="props.title"
-          loading="lazy"
-          class="w-full h-full object-cover transition-opacity duration-300"
-          :class="{ 'opacity-0': !imageLoaded }"
-          @load="handleImageLoad"
-          @error="handleImageError"
-        />
+  <div class="article-card group relative w-full" :class="cardClasses">
+    <!-- Контейнер для изображения с центрированием -->
+    <div class="flex justify-center mb-4">
+      <template v-if="link">
+        <nuxt-link :to="link" class="block w-full max-w-[280px]">
+          <div
+            class="relative bg-light-gray overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-300 w-full h-[180px]"
+          >
+            <!-- Изображение -->
+            <img
+              v-if="imageUrl && !imageError && !loading"
+              :src="imageUrl"
+              :alt="title"
+              loading="lazy"
+              class="w-full h-full object-cover transition-opacity duration-300"
+              :class="{ 'opacity-0': !imageLoaded }"
+              @load="handleImageLoad"
+              @error="handleImageError"
+            />
 
-        <!-- Скелетон при загрузке -->
-        <ImageSkeleton
-          v-if="loading || (!imageLoaded && props.imageUrl && !imageError)"
-          class="absolute inset-0 w-full"
-          :style="{
-            width: ARTICLE_CARD_IMAGE.WIDTH,
-            height: ARTICLE_CARD_IMAGE.HEIGHT,
-          }"
-        />
+            <!-- Скелетон при загрузке -->
+            <ImageSkeleton
+              v-if="loading || (!imageLoaded && imageUrl && !imageError)"
+              class="absolute inset-0 w-full h-full"
+            />
 
-        <!-- Заглушка при отсутствии изображения или ошибке -->
-        <ImagePlaceholder
-          v-if="shouldShowPlaceholder && !loading"
-          :title="props.title"
-          class="absolute inset-0"
-          :style="{
-            width: ARTICLE_CARD_IMAGE.WIDTH,
-            height: ARTICLE_CARD_IMAGE.HEIGHT,
-          }"
-        />
-      </div>
-    </nuxt-link>
+            <!-- Заглушка при отсутствии изображения или ошибке -->
+            <ImagePlaceholder
+              v-if="shouldShowPlaceholder && !loading"
+              :title="title"
+              class="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </nuxt-link>
+      </template>
+      <template v-else>
+        <div class="block w-full max-w-[280px]">
+          <div
+            class="relative bg-light-gray overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-300 w-full h-[180px]"
+          >
+            <!-- Изображение -->
+            <img
+              v-if="imageUrl && !imageError && !loading"
+              :src="imageUrl"
+              :alt="title"
+              loading="lazy"
+              class="w-full h-full object-cover transition-opacity duration-300"
+              :class="{ 'opacity-0': !imageLoaded }"
+              @load="handleImageLoad"
+              @error="handleImageError"
+            />
+
+            <!-- Скелетон при загрузке -->
+            <ImageSkeleton
+              v-if="loading || (!imageLoaded && imageUrl && !imageError)"
+              class="absolute inset-0 w-full h-full"
+            />
+
+            <!-- Заглушка при отсутствии изображения или ошибке -->
+            <ImagePlaceholder
+              v-if="shouldShowPlaceholder && !loading"
+              :title="title"
+              class="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
+      </template>
+    </div>
 
     <!-- Контент карточки -->
-    <div class="w-full lg:w-[280px]" :style="contentStyle">
-      <nuxt-link :to="link">
+    <div class="w-full">
+      <template v-if="link">
+        <nuxt-link :to="link">
+          <template v-if="loading">
+            <!-- Скелетон для заголовка -->
+            <Skeleton :class="`h-[${ARTICLE_SKELETON.TITLE_HEIGHT}] mb-2`" />
+            <!-- Скелетон для описания -->
+            <div class="space-y-2">
+              <Skeleton
+                v-for="i in ARTICLE_SKELETON.DESCRIPTION_LINES"
+                :key="i"
+                :class="i === 1 ? 'w-full' : i === 2 ? 'w-3/4' : 'w-1/2'"
+              />
+            </div>
+          </template>
+          <template v-else>
+            <Typography
+              :text="description"
+              variant="h5"
+              tag="h3"
+              weight="medium"
+              custom-class="text-[20px] line-clamp-3"
+            />
+          </template>
+        </nuxt-link>
+      </template>
+      <template v-else>
         <template v-if="loading">
           <!-- Скелетон для заголовка -->
-          <Skeleton class="h-[60px] mb-2" />
-          <!-- Скелетон для описания (3 строки) -->
+          <Skeleton :class="`h-[${ARTICLE_SKELETON.TITLE_HEIGHT}] mb-2`" />
+          <!-- Скелетон для описания -->
           <div class="space-y-2">
-            <Skeleton class="w-full" />
-            <Skeleton class="w-3/4" />
-            <Skeleton class="w-1/2" />
+            <Skeleton
+              v-for="i in ARTICLE_SKELETON.DESCRIPTION_LINES"
+              :key="i"
+              :class="i === 1 ? 'w-full' : i === 2 ? 'w-3/4' : 'w-1/2'"
+            />
           </div>
         </template>
         <template v-else>
           <Typography
-            :text="props.description"
+            :text="description"
             variant="h5"
             tag="h3"
             weight="medium"
             custom-class="text-[20px] line-clamp-3"
           />
         </template>
-      </nuxt-link>
+      </template>
       <div
-        v-if="!loading"
+        v-if="!loading && link"
         :class="['mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300']"
       >
         <nuxt-link :to="link" class="text-bg-purple font-medium cursor-pointer"

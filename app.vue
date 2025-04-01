@@ -26,7 +26,7 @@
     meta: [
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1.0, viewport-fit=cover, orientation=portrait',
+        content: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
       },
       { name: 'theme-color', content: '#8B5CF6' },
       {

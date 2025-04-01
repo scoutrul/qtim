@@ -17,7 +17,7 @@
 
     <!-- Кнопка "Go" для прокрутки наверх (только для lg и больше) -->
     <div class="hidden lg:block">
-      <FooterGoButton />
+      <FooterGoButton text="Go" />
     </div>
   </footer>
 </template>

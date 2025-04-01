@@ -121,7 +121,6 @@
     >
       <div
         v-if="modelValue"
-        v-show="modelValue"
         class="fixed inset-0 z-50 flex items-center justify-center"
         @click="handleBackdropClick"
       >
@@ -137,8 +136,8 @@
           leave-from-class="opacity-100 transform scale-100"
           leave-to-class="opacity-0 transform scale-95"
         >
-          <!-- Содержимое модального окна -->
           <div
+            v-if="modelValue"
             ref="modalContent"
             :class="[
               'relative bg-white rounded-lg shadow-xl transform transition-all p-0 overflow-hidden',

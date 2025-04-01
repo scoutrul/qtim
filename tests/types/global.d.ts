@@ -10,4 +10,4 @@ declare module '#app' {
       apiBase: string
     }
   }
-} 
+}
