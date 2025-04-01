@@ -1,6 +1,5 @@
 <template>
   <main>
-    <!-- Секция статей со скелетонами при загрузке -->
     <ArticleSection
       :title="t('common.articles')"
       :articles="processedPosts"

@@ -54,17 +54,19 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, onMounted } from 'vue'
+  import { ref, computed, onBeforeMount, onMounted, watch } from 'vue'
   import { useRoute } from 'vue-router'
   import Skeleton from '@/components/ui/Skeleton.vue'
   import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
   import ArticleContentSkeleton from '@/components/article/ArticleContentSkeleton.vue'
   import ArticleContent from '@/components/article/ArticleContent.vue'
   import { usePosts } from '@/composables/usePosts'
+  import { useScroll } from '@/composables/useScroll'
 
   const route = useRoute()
   const articleId = computed(() => route.params.id as string)
   const { post, loading, error, fetchPostById } = usePosts()
+  const { scrollToTop } = useScroll()
 
   // Статус загрузки изображения
   const imageLoaded = ref(false)
@@ -78,10 +80,20 @@
     imageError.value = true
   }
 
-  // Загружаем статью при монтировании компонента
+  // Используем onBeforeMount вместо onMounted
+  onBeforeMount(() => {
+    scrollToTop('instant')
+  })
+
   onMounted(async () => {
     await fetchPostById(articleId.value)
+        scrollToTop('instant')
   })
+
+  // Добавляем после onMounted
+  watch(() => route.path, () => {
+    scrollToTop('instant')
+  }, { immediate: true })
 </script>
 
 <style scoped>

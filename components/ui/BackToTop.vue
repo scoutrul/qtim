@@ -1,8 +1,12 @@
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted } from 'vue'
+  import { computed } from 'vue'
+  import { useWindowScroll } from '@vueuse/core'
   import { useI18n } from '@/composables/useI18n'
+  import { useScroll } from '@/composables/useScroll'
 
   const { t } = useI18n()
+
+  const { scrollToTop } = useScroll()
 
   // Свойства компонента
   interface Props {
@@ -17,8 +21,11 @@
     color: 'bg-black',
   })
 
-  // Видимость кнопки
-  const isVisible = ref(false)
+  // Используем useWindowScroll для более надежного отслеживания
+  const { y: scrollY } = useWindowScroll()
+
+  // Вычисляем видимость на основе текущей позиции скролла
+  const isVisible = computed(() => scrollY.value > props.threshold)
 
   // Классы размеров кнопки
   const sizeClasses = {
@@ -27,28 +34,9 @@
     lg: 'w-20 h-20 text-lg',
   }
 
-  // Проверка положения скролла
-  const checkScroll = () => {
-    isVisible.value = window.scrollY > props.threshold
+  const handleScrollToTop = () => {
+    scrollToTop('smooth')
   }
-
-  // Скролл наверх страницы
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  }
-
-  // Жизненный цикл компонента
-  onMounted(() => {
-    window.addEventListener('scroll', checkScroll)
-    checkScroll() // Проверить при монтировании
-  })
-
-  onUnmounted(() => {
-    window.removeEventListener('scroll', checkScroll)
-  })
 </script>
 
 <template>
@@ -58,7 +46,11 @@
     enter-from-class="opacity-0"
     leave-to-class="opacity-0"
   >
-    <div v-show="isVisible" class="fixed bottom-10 right-10 z-50" @click="scrollToTop">
+    <div 
+      v-show="isVisible" 
+      class="fixed bottom-5 right-5 z-[100] block md:bottom-10 md:right-10" 
+      @click="handleScrollToTop"
+    >
       <button
         :class="[
           'rounded-full flex items-center justify-center text-white shadow-lg hover:opacity-90 cursor-pointer transition-all duration-300',

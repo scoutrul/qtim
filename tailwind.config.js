@@ -28,8 +28,8 @@ module.exports = {
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      xl: '1216px',
-      '2xl': '1216px',
+      xl: '1120px',
+      '2xl': '1320px',
     },
     extend: {
       colors: {

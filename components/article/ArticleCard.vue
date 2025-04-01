@@ -61,6 +61,7 @@
 <template>
   <div 
     class="article-card group relative w-full lg:w-[280px]"
+    :class="cardClasses"
     :style="contentStyle"
   >
     <nuxt-link :to="link">
@@ -84,7 +85,7 @@
         <!-- Скелетон при загрузке -->
         <ImageSkeleton
           v-if="loading || (!imageLoaded && props.imageUrl && !imageError)"
-          class="absolute inset-0"
+          class="absolute inset-0 w-full"
           :style="{
             width: ARTICLE_CARD_IMAGE.WIDTH,
             height: ARTICLE_CARD_IMAGE.HEIGHT,
