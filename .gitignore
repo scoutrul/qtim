@@ -66,7 +66,6 @@ coverage
 .npm
 .eslintcache 
 .vercel
-.cursorRules
 
 # Nuxt dev/build outputs
 .data
