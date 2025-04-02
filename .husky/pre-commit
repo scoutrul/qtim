@@ -1,3 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
 # Запускаем lint-staged (линтинг и форматирование)
 npx lint-staged
 

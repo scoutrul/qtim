@@ -11,26 +11,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
 
-  // Автоматические импорты
-  imports: {
-    dirs: ['composables', 'utils', 'stores'],
+  // Оптимизация сборки
+  build: {
+    transpile: ['vue'],
   },
 
-  // Глобальные компоненты
-  components: [
-    { path: '~/components/ui', prefix: '' },
-    { path: '~/components', pathPrefix: false },
-  ],
-
-  // Настройка PostCSS для Tailwind
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
-
-  // Настройка Vite
+  // Оптимизация Vite
   vite: {
     plugins: [tsconfigPaths({ loose: true })],
     resolve: {
@@ -38,9 +24,37 @@ export default defineNuxtConfig({
         '@': resolve(__dirname),
       },
     },
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['vue', 'vue-router', 'pinia'],
+          },
+        },
+      },
+    },
+    optimizeDeps: {
+      include: ['vue', 'vue-router', 'pinia'],
+    },
   },
 
-  // Настройка TypeScript
+  // Автоматические импорты с оптимизацией
+  imports: {
+    dirs: ['composables', 'utils', 'stores'],
+    presets: ['vue', 'vue-router', 'pinia'],
+  },
+
+  // Оптимизация PostCSS
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+      ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
+    },
+  },
+
+  // Оптимизация TypeScript
   typescript: {
     strict: true,
     typeCheck: false,
@@ -50,6 +64,10 @@ export default defineNuxtConfig({
         paths: {
           '@/*': ['./*'],
         },
+        target: 'ESNext',
+        module: 'ESNext',
+        moduleResolution: 'bundler',
+        skipLibCheck: true,
       },
     },
   },
@@ -60,7 +78,7 @@ export default defineNuxtConfig({
     '~': '.',
   },
 
-  // Настройка отображения ошибок
+  // Оптимизация приложения
   app: {
     head: {
       htmlAttrs: {
@@ -72,43 +90,54 @@ export default defineNuxtConfig({
           name: 'description',
           content: 'QTIM - профессиональная разработка проектов и digital-решений',
         },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1, maximum-scale=1',
+        },
+      ],
+      link: [
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.googleapis.com',
+        },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.gstatic.com',
+          crossorigin: 'anonymous',
+        },
       ],
     },
     pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' },
   },
 
+  // Оптимизация runtime
   runtimeConfig: {
     public: {
       apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
     },
   },
 
-  modules: [
-    // здесь не должно быть '@nuxtjs/storybook'
-  ],
+  // Оптимизация модулей
+  modules: [],
 
+  // Оптимизация Nitro
   nitro: {
     static: true,
+    compressPublicAssets: true,
+    minify: true,
     routeRules: {
       '/storybook': { redirect: '/storybook/index.html' },
       '/storybook/': { redirect: '/storybook/index.html' },
       '/*.html': { redirect: '/*.html' },
-      '/*.js': { redirect: '/*.js' },
-      '/*.css': { redirect: '/*.css' },
-      '/*.png': { redirect: '/*.png' },
-      '/*.jpg': { redirect: '/*.jpg' },
-      '/*.jpeg': { redirect: '/*.jpeg' },
-      '/*.gif': { redirect: '/*.gif' },
-      '/*.svg': { redirect: '/*.svg' },
-      '/*.ico': { redirect: '/*.ico' },
-      '/*.woff': { redirect: '/*.woff' },
-      '/*.woff2': { redirect: '/*.woff2' },
-      '/*.ttf': { redirect: '/*.ttf' },
-      '/*.eot': { redirect: '/*.eot' },
       '/:path*/': { redirect: '/:path*/' },
     },
   },
 
-  // Убираем hooks, так как они могут мешать
-  hooks: {},
+  // Оптимизация экспериментальных функций
+  experimental: {
+    payloadExtraction: true,
+    renderJsonPayloads: true,
+    crossOriginPrefetch: true,
+  },
 })
