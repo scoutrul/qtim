@@ -1,18 +1,18 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run vercel-build",
-  "devCommand": "npm run storybook",
+  "buildCommand": "npm run build && npm run build-storybook",
+  "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": null,
-  "outputDirectory": "storybook-static",
+  "outputDirectory": ".output",
   "rewrites": [
     {
-      "source": "/storybook/:path*",
-      "destination": "/:path*"
+      "source": "/storybook/(.*)",
+      "destination": "/storybook-static/$1"
     },
     {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "/$1"
     }
   ],
   "headers": [

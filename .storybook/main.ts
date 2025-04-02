@@ -19,8 +19,18 @@ export default {
   viteFinal: async (viteConfig) => ({
     ...viteConfig,
     build: {
+      ...viteConfig.build,
       target: 'esnext',
       sourcemap: false,
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            storybook: ['@storybook/vue3', '@storybook/vue3-vite'],
+            vue: ['vue'],
+          },
+        },
+      },
     },
     resolve: {
       alias: {

@@ -1,11 +1,11 @@
 {
   "name": "QTIM",
   "short_name": "QTIM",
-  "description": "QTIM - профессиональная разработка проектов и digital-решений",
+  "description": "QTIM Application",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#8B5CF6",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "/favicon.svg",
