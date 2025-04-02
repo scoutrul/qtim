@@ -19,6 +19,8 @@ dist
 storybook-static
 storybook-static/**/*
 .storybook-static
+public/storybook
+public/storybook/**/*
 
 # Логи
 logs

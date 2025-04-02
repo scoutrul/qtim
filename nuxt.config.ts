@@ -56,7 +56,8 @@ export default defineNuxtConfig({
 
   // Алиасы путей
   alias: {
-    '@': resolve(__dirname),
+    '@': '.',
+    '~': '.',
   },
 
   // Настройка отображения ошибок

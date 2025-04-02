@@ -13,8 +13,14 @@
 
   const showWarning = ref(false)
 
+  const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  }
+
   const checkOrientation = () => {
-    showWarning.value = window.innerWidth > window.innerHeight
+    showWarning.value = isMobile() && window.innerWidth > window.innerHeight
   }
 
   onMounted(() => {
