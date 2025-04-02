@@ -11,6 +11,10 @@
       "destination": "/storybook-static/$1"
     },
     {
+      "source": "/storybook",
+      "destination": "/storybook-static/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/$1"
     }
