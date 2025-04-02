@@ -69,7 +69,12 @@
     "no-restricted-imports": [
       "error",
       {
-        "patterns": ["../../*"]
+        "patterns": [
+          {
+            "group": ["~/*, ../*", "./*"],
+            "message": "Используйте алиасы (@/) вместо относительных путей и тильды в импортах."
+          }
+        ]
       }
     ],
     "import/no-unresolved": [
