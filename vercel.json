@@ -4,20 +4,16 @@
   "devCommand": "npm run storybook",
   "installCommand": "npm install",
   "framework": null,
-  "outputDirectory": ".output",
+  "outputDirectory": "storybook-static",
   "rewrites": [
     {
-      "source": "/storybook/:path*",
-      "destination": "/storybook/:path*"
-    },
-    {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "/$1"
     }
   ],
   "headers": [
     {
-      "source": "/storybook/(.*)",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

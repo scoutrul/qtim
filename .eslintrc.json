@@ -12,16 +12,20 @@
     "plugin:prettier/recommended",
     "plugin:storybook/recommended",
     "plugin:import/recommended",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:nuxt/recommended"
   ],
-  "plugins": ["@typescript-eslint", "prettier", "storybook", "import"],
+  "plugins": ["@typescript-eslint", "prettier", "storybook", "import", "nuxt"],
   "parser": "vue-eslint-parser",
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
-    "ecmaVersion": 2022,
+    "ecmaVersion": "latest",
     "sourceType": "module",
     "project": ["./tsconfig.json"],
-    "extraFileExtensions": [".vue"]
+    "extraFileExtensions": [".vue"],
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "settings": {
     "import/parsers": {
@@ -32,15 +36,19 @@
         "alwaysTryTypes": true,
         "project": "./tsconfig.json"
       }
+    },
+    "vue": {
+      "version": "detect"
     }
   },
   "ignorePatterns": ["tailwind.config.js", "dist", "node_modules"],
   "overrides": [
     {
-      "files": [".storybook/**/*"],
+      "files": ["storybook/**/*", ".storybook/**/*"],
       "rules": {
         "@typescript-eslint/no-unsafe-assignment": "off",
-        "@typescript-eslint/no-unsafe-call": "off"
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unused-vars": "off"
       }
     }
   ],
@@ -58,12 +66,7 @@
     "vue/component-api-style": ["error", ["script-setup"]],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "^_"
-      }
-    ],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {
@@ -88,6 +91,25 @@
       {
         "allowAsStatement": true
       }
-    ]
+    ],
+    "vue/no-v-html": "off",
+    "vue/require-default-prop": "off",
+    "vue/valid-v-slot": "off",
+    "vue/no-v-for-template-key": "off",
+    "vue/no-v-for-template-key-on-child": "off",
+    "vue/no-v-for-template-key-with-v-if": "off",
+    "vue/no-v-for-template-key-with-v-else": "off",
+    "vue/no-v-for-template-key-with-v-else-if": "off",
+    "vue/no-v-for-template-key-with-v-show": "off",
+    "vue/no-v-for-template-key-with-v-cloak": "off",
+    "vue/no-v-for-template-key-with-v-pre": "off",
+    "vue/no-v-for-template-key-with-v-once": "off",
+    "vue/no-v-for-template-key-with-v-memo": "off",
+    "vue/no-v-for-template-key-with-v-is": "off",
+    "vue/no-v-for-template-key-with-v-bind": "off",
+    "vue/no-v-for-template-key-with-v-model": "off",
+    "vue/no-v-for-template-key-with-v-slot": "off",
+    "vue/no-v-for-template-key-with-v-text": "off",
+    "vue/no-v-for-template-key-with-v-html": "off"
   }
 }
