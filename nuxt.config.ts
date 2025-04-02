@@ -1,24 +1,27 @@
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineNuxtConfig } from 'nuxt/config'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
 
-  // Оптимизация сборки
+  // Базовые алиасы
+  alias: {
+    '@': '.',
+    '~': '.',
+  },
+
+  // Настройка сборки
   build: {
     transpile: ['vue'],
   },
 
-  // Оптимизация Vite
+  // Настройка Vite
   vite: {
-    plugins: [tsconfigPaths({ loose: true })],
     resolve: {
       alias: {
         '@': resolve(__dirname),
@@ -29,23 +32,22 @@ export default defineNuxtConfig({
       rollupOptions: {
         output: {
           manualChunks: {
-            vendor: ['vue', 'vue-router', 'pinia'],
+            vendor: ['vue', 'vue-router'],
           },
         },
       },
     },
     optimizeDeps: {
-      include: ['vue', 'vue-router', 'pinia'],
+      include: ['vue', 'vue-router'],
     },
   },
 
-  // Автоматические импорты с оптимизацией
+  // Автоматические импорты
   imports: {
     dirs: ['composables', 'utils', 'stores'],
-    presets: ['vue', 'vue-router', 'pinia'],
   },
 
-  // Оптимизация PostCSS
+  // Настройки PostCSS для Tailwind
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -54,7 +56,7 @@ export default defineNuxtConfig({
     },
   },
 
-  // Оптимизация TypeScript
+  // Настройки TypeScript
   typescript: {
     strict: true,
     typeCheck: false,
@@ -64,21 +66,11 @@ export default defineNuxtConfig({
         paths: {
           '@/*': ['./*'],
         },
-        target: 'ESNext',
-        module: 'ESNext',
-        moduleResolution: 'bundler',
-        skipLibCheck: true,
       },
     },
   },
 
-  // Алиасы путей
-  alias: {
-    '@': '.',
-    '~': '.',
-  },
-
-  // Оптимизация приложения
+  // Настройки приложения
   app: {
     head: {
       htmlAttrs: {
@@ -111,33 +103,30 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'layout', mode: 'out-in' },
   },
 
-  // Оптимизация runtime
+  // Конфигурация рантайма
   runtimeConfig: {
     public: {
       apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
     },
   },
 
-  // Оптимизация модулей
-  modules: [],
-
-  // Оптимизация Nitro
+  // Настройки Nitro для оптимизации
   nitro: {
-    static: true,
     compressPublicAssets: true,
     minify: true,
     routeRules: {
-      '/storybook': { redirect: '/storybook/index.html' },
-      '/storybook/': { redirect: '/storybook/index.html' },
-      '/*.html': { redirect: '/*.html' },
-      '/:path*/': { redirect: '/:path*/' },
+      '/**': { swr: 600 },
+      '/api/**': { swr: 0 },
     },
   },
 
-  // Оптимизация экспериментальных функций
+  // Экспериментальные функции
   experimental: {
     payloadExtraction: true,
     renderJsonPayloads: true,
     crossOriginPrefetch: true,
   },
+
+  // Добавим дату совместимости
+  compatibilityDate: '2024-04-03',
 })

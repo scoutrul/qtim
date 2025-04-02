@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useI18n } from '@/composables/useI18n'
   import Logo from '@/components/ui/Logo.vue'
   import NavLink from '@/components/ui/NavLink.vue'
@@ -9,6 +9,7 @@
   import { useContactModal } from '@/composables/useContactModal'
 
   const { t } = useI18n()
+  const router = useRouter()
 
   interface MenuItem {
     title: string
@@ -100,7 +101,7 @@
   >
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16">
       <div class="flex items-center justify-between">
-        <Logo variant="dark" class="cursor-pointer z-20" @click="$router.push('/')" />
+        <Logo variant="dark" class="cursor-pointer z-20" @click="router.push('/')" />
 
         <!-- Гамбургер меню для мобильных -->
         <button
