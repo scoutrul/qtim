@@ -105,7 +105,7 @@ export default defineNuxtConfig({
       '/*.woff2': { redirect: '/*.woff2' },
       '/*.ttf': { redirect: '/*.ttf' },
       '/*.eot': { redirect: '/*.eot' },
-      '/**': { redirect: '/**/' },
+      '/:path*/': { redirect: '/:path*/' },
     },
   },
 
