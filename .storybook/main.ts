@@ -22,12 +22,18 @@ export default {
       ...viteConfig.build,
       target: 'esnext',
       sourcemap: false,
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 2000,
       rollupOptions: {
         output: {
           manualChunks: {
-            storybook: ['@storybook/vue3', '@storybook/vue3-vite'],
-            vue: ['vue'],
+            storybook: [
+              '@storybook/vue3',
+              '@storybook/vue3-vite',
+              '@storybook/addon-links',
+              '@storybook/addon-essentials',
+            ],
+            vue: ['vue', 'vue-router', 'pinia'],
+            ui: ['@headlessui/vue', '@heroicons/vue'],
           },
         },
       },
