@@ -92,6 +92,7 @@ export default defineNuxtConfig({
     routeRules: {
       '/storybook': { redirect: '/storybook/index.html' },
       '/storybook/': { redirect: '/storybook/index.html' },
+      '/**': { redirect: '/**/' },
     },
   },
 
