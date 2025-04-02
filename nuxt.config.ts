@@ -89,6 +89,10 @@ export default defineNuxtConfig({
 
   nitro: {
     static: true,
+    routeRules: {
+      '/storybook': { redirect: '/storybook/index.html' },
+      '/storybook/': { redirect: '/storybook/index.html' },
+    },
   },
 
   // Убираем hooks, так как они могут мешать
