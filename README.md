@@ -9,7 +9,7 @@
 - 📂 [GitHub репозиторий](https://github.com/scoutrul/qtim)
 
 Рабочая версия приложения доступна по ссылке: [QTIM Test App](https://qtim-testovoe.vercel.app/)
-Storybook доступен по адресу: [QTIM Storybook](https://qtim-testovoe.vercel.app/storybook)
+Storybook доступен по адресу: [QTIM Storybook](https://qtim-testovoe.vercel.app/storybook/)
 
 ### Основные возможности
 
@@ -125,7 +125,7 @@ Storybook доступен по адресу: [QTIM Storybook](https://qtim-test
 
 - **Typography** - Компоненты типографики (заголовки, параграфы, ссылки)
 
-Storybook доступен по адресу `/storybook` на деплоенном сайте (например, `https://qtim-testovoe.vercel.app/storybook`).
+Storybook доступен по адресу: [https://qtim-testovoe.vercel.app/storybook/](https://qtim-testovoe.vercel.app/storybook/)
 
 ### API Endpoints:
 
