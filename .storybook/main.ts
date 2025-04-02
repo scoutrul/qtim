@@ -32,7 +32,7 @@ export default {
               '@storybook/addon-links',
               '@storybook/addon-essentials',
             ],
-            vue: ['vue', 'vue-router', 'pinia'],
+            vue: ['vue', 'vue-router'],
             ui: ['@headlessui/vue', '@heroicons/vue'],
           },
         },
