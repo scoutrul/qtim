@@ -7,13 +7,17 @@
   "outputDirectory": "storybook-static",
   "rewrites": [
     {
+      "source": "/storybook/:path*",
+      "destination": "/:path*"
+    },
+    {
       "source": "/(.*)",
-      "destination": "/$1"
+      "destination": "/"
     }
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/storybook/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
