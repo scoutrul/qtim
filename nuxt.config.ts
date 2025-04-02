@@ -85,4 +85,11 @@ export default defineNuxtConfig({
   modules: [
     // здесь не должно быть '@nuxtjs/storybook'
   ],
+
+  nitro: {
+    static: true,
+  },
+
+  // Убираем hooks, так как они могут мешать
+  hooks: {},
 })

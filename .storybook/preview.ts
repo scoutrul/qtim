@@ -1,8 +1,6 @@
 import type { Preview } from '@storybook/vue3'
 import { setup } from '@storybook/vue3'
-
-// Импортируем стили
-import './style.css'
+import '../assets/css/main.css'
 
 setup((app) => {
   // Здесь можно добавить глобальные плагины Vue если нужно
@@ -17,13 +15,11 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    backgrounds: {
-      default: 'light',
-    },
   },
   decorators: [
-    () => ({
-      template: '<div class="p-4 font-sans antialiased"><story /></div>',
+    (story) => ({
+      template: '<div class="p-4"><story /></div>',
+      components: { story },
     }),
   ],
 }

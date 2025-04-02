@@ -1,8 +1,10 @@
 import type { StorybookConfig } from '@storybook/vue3-vite'
+import { mergeConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 import tailwindcss from 'tailwindcss'
 import autoprefixer from 'autoprefixer'
 
-export default {
+const config: StorybookConfig = {
   framework: {
     name: '@storybook/vue3-vite',
     options: {},
@@ -12,44 +14,27 @@ export default {
   core: {
     disableTelemetry: true,
   },
-  features: {
-    argTypeTargetsV7: true,
-  },
   staticDirs: ['../public'],
-  viteFinal: async (viteConfig) => ({
-    ...viteConfig,
-    build: {
-      ...viteConfig.build,
-      target: 'esnext',
-      sourcemap: false,
-      chunkSizeWarningLimit: 2000,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            storybook: [
-              '@storybook/vue3',
-              '@storybook/vue3-vite',
-              '@storybook/addon-links',
-              '@storybook/addon-essentials',
-            ],
-            vue: ['vue', 'vue-router'],
-          },
+  docs: {
+    autodocs: 'tag',
+  },
+  viteFinal: async (config) => {
+    return mergeConfig(config, {
+      plugins: [vue()],
+      base: '/storybook/',
+      resolve: {
+        alias: {
+          '@': new URL('../', import.meta.url).pathname,
+          '~': new URL('../', import.meta.url).pathname,
         },
       },
-    },
-    resolve: {
-      alias: {
-        '@': new URL('../', import.meta.url).pathname,
-        '~': new URL('../', import.meta.url).pathname,
+      css: {
+        postcss: {
+          plugins: [tailwindcss, autoprefixer],
+        },
       },
-    },
-    css: {
-      postcss: {
-        plugins: [tailwindcss, autoprefixer],
-      },
-    },
-  }),
-  typescript: {
-    check: true,
+    })
   },
-} satisfies StorybookConfig
+}
+
+export default config

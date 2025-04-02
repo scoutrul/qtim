@@ -1,6 +1,26 @@
-@import url('../assets/css/main.css');
-
 /* Дополнительные стили для Storybook */
 .sb-show-main {
   font-family: 'Inter', sans-serif;
+}
+
+/* Отключаем блокировку ориентации для Storybook */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  body::before {
+    display: none !important;
+  }
+  body > * {
+    display: block !important;
+  }
+}
+
+/* Отключаем фиксированную высоту для Storybook */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  html {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  body {
+    height: auto !important;
+    overflow: visible !important;
+  }
 } 
