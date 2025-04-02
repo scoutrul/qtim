@@ -21,9 +21,10 @@
     "validate": "npm run format:check && npm run lint:check && npm run type-check",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "rm -rf public/storybook && mkdir -p public/storybook && storybook build && cp -r storybook-static/* public/storybook/",
     "serve-storybook": "serve storybook-static",
-    "vercel-build": "mkdir -p .output && turbo run vercel-deploy && cp -r storybook-static .output/storybook-static"
+    "vercel-build": "mkdir -p .output && turbo run vercel-deploy && cp -r storybook-static .output/storybook-static",
+    "clean": "rm -rf .nuxt .output storybook-static public/storybook"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.23",
