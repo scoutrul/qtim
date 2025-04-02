@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".output/**", "storybook-static/**"],
+      "outputs": [".output/**"],
       "cache": true
     },
     "dev": {
@@ -29,7 +29,7 @@
     },
     "vercel-deploy": {
       "dependsOn": ["build", "build-storybook"],
-      "outputs": [".output/**", "storybook-static/**"],
+      "outputs": [".output/**"],
       "cache": true
     }
   }

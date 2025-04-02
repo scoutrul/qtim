@@ -23,7 +23,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "serve-storybook": "serve storybook-static",
-    "vercel-build": "turbo run vercel-deploy"
+    "vercel-build": "turbo run vercel-deploy && cp -r storybook-static .output/storybook-static"
   },
   "dependencies": {
     "@vueuse/core": "^13.0.0",
