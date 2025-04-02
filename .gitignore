@@ -11,6 +11,15 @@ dist
 .husky
 .vercel
 
+# Turborepo
+.turbo
+.turbo-cache
+
+# Storybook
+storybook-static
+storybook-static/**/*
+.storybook-static
+
 # Логи
 logs
 *.log
@@ -19,6 +28,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+*storybook.log
 
 # Локальные файлы среды
 # .env
@@ -69,5 +79,3 @@ coverage
 .vscode/
 .idea/
 *.sublime-*
-
-*storybook.log

@@ -2,6 +2,7 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
+  "packageManager": "npm@10.2.4",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -13,7 +14,7 @@
     "test:ui": "vitest --ui",
     "format": "prettier --write \"**/*.{ts,tsx,vue,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,vue,js,jsx,json,md}\"",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "lint:check": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "lint:fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore && prettier --write \"**/*.{ts,tsx,vue,js,jsx,json,md}\"",
     "type-check": "vue-tsc --noEmit",
@@ -22,7 +23,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "serve-storybook": "serve storybook-static",
-    "vercel-build": "npm run build && npm run build-storybook"
+    "vercel-build": "turbo run vercel-deploy"
   },
   "dependencies": {
     "@vueuse/core": "^13.0.0",
@@ -64,8 +65,10 @@
     "playwright": "^1.51.1",
     "postcss": "^8.4.31",
     "prettier": "^3.5.3",
+    "serve": "^14.2.4",
     "storybook": "^8.6.11",
     "tailwindcss": "^3.3.5",
+    "turbo": "^2.4.4",
     "typescript": "~5.3.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.1.1",
@@ -79,5 +82,17 @@
     "*.{json,md}": [
       "prettier --write"
     ]
+  },
+  "pipeline": {
+    "build": {
+      "outputs": [
+        ".output/**",
+        "storybook-static/**"
+      ],
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true
+    }
   }
 }
