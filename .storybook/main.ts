@@ -33,7 +33,6 @@ export default {
               '@storybook/addon-essentials',
             ],
             vue: ['vue', 'vue-router'],
-            ui: ['@headlessui/vue', '@heroicons/vue'],
           },
         },
       },

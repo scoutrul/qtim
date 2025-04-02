@@ -26,6 +26,8 @@
     "vercel-build": "mkdir -p .output && turbo run vercel-deploy && cp -r storybook-static .output/storybook-static"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@heroicons/vue": "^2.2.0",
     "@vueuse/core": "^13.0.0",
     "nuxt": "^3.16.1",
     "pinia": "^3.0.1",
