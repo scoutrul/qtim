@@ -29,13 +29,6 @@ export default defineNuxtConfig({
     },
     build: {
       cssCodeSplit: true,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: ['vue', 'vue-router'],
-          },
-        },
-      },
     },
     optimizeDeps: {
       include: ['vue', 'vue-router'],
@@ -118,13 +111,6 @@ export default defineNuxtConfig({
       '/**': { swr: 600 },
       '/api/**': { swr: 0 },
     },
-  },
-
-  // Экспериментальные функции
-  experimental: {
-    payloadExtraction: true,
-    renderJsonPayloads: true,
-    crossOriginPrefetch: true,
   },
 
   // Добавим дату совместимости
