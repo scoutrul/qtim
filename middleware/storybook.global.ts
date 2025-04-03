@@ -1,5 +1,3 @@
-export default defineNuxtRouteMiddleware((to) => {
-  if (to.path === '/storybook' || to.path === '/storybook/') {
-    return navigateTo('/storybook/index.html', { external: true })
-  }
+export default defineNuxtRouteMiddleware(() => {
+  // Пустой middleware, так как редирект не нужен
 })

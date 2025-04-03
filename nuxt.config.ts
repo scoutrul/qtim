@@ -83,32 +83,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [
-    // здесь не должно быть '@nuxtjs/storybook'
-  ],
-
   nitro: {
     static: true,
-    routeRules: {
-      '/storybook': { redirect: '/storybook/index.html' },
-      '/storybook/': { redirect: '/storybook/index.html' },
-      '/*.html': { redirect: '/*.html' },
-      '/*.js': { redirect: '/*.js' },
-      '/*.css': { redirect: '/*.css' },
-      '/*.png': { redirect: '/*.png' },
-      '/*.jpg': { redirect: '/*.jpg' },
-      '/*.jpeg': { redirect: '/*.jpeg' },
-      '/*.gif': { redirect: '/*.gif' },
-      '/*.svg': { redirect: '/*.svg' },
-      '/*.ico': { redirect: '/*.ico' },
-      '/*.woff': { redirect: '/*.woff' },
-      '/*.woff2': { redirect: '/*.woff2' },
-      '/*.ttf': { redirect: '/*.ttf' },
-      '/*.eot': { redirect: '/*.eot' },
-      '/:path*/': { redirect: '/:path*/' },
-    },
   },
-
-  // Убираем hooks, так как они могут мешать
-  hooks: {},
 })
