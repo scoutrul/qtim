@@ -68,7 +68,7 @@
 
       <!-- Сообщение об ошибке -->
       <div v-if="hasError" class="min-h-[40vh] flex justify-center items-center">
-        <div class="text-error text-xl font-tt-commons">{{ displayErrorMessage }}</div>
+        <div class="text-error text-xl">{{ displayErrorMessage }}</div>
       </div>
 
       <!-- Сетка статей -->
@@ -81,7 +81,7 @@
           :current-page="currentPage"
           :total-pages="totalPages"
           :show-prev-button="false"
-          class="font-tt-commons mt-[50px]"
+          class="mt-[50px]"
           @update:page="handlePageChange"
         />
       </template>
