@@ -25,6 +25,7 @@ export default defineNuxtConfig({
   // Настройка PostCSS для Tailwind
   postcss: {
     plugins: {
+      'tailwindcss/nesting': {},
       tailwindcss: {},
       autoprefixer: {},
     },
@@ -85,5 +86,12 @@ export default defineNuxtConfig({
 
   nitro: {
     static: true,
+    routeRules: {
+      '/**': {
+        headers: {
+          'X-Frame-Options': 'SAMEORIGIN',
+        },
+      },
+    },
   },
 })
