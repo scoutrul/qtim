@@ -43,6 +43,7 @@ export default defineNuxtConfig({
   // Настройки PostCSS для Tailwind
   postcss: {
     plugins: {
+      'tailwindcss/nesting': {},
       tailwindcss: {},
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
@@ -103,16 +104,15 @@ export default defineNuxtConfig({
     },
   },
 
-  // Настройки Nitro для оптимизации
   nitro: {
     compressPublicAssets: true,
     minify: true,
     routeRules: {
-      '/**': { swr: 600 },
-      '/api/**': { swr: 0 },
+      '/**': {
+        headers: {
+          'X-Frame-Options': 'SAMEORIGIN',
+        },
+      },
     },
   },
-
-  // Добавим дату совместимости
-  compatibilityDate: '2024-04-03',
 })

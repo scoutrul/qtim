@@ -17,9 +17,7 @@
   >
     <ContactForm @submit="closeModal" />
     <template #footer>
-      <Button variant="underlined" size="lg" class="mr-3 font-tt-commons" @click="closeModal">
-        Отмена
-      </Button>
+      <Button variant="underlined" size="lg" class="mr-3" @click="closeModal"> Отмена </Button>
     </template>
   </Modal>
 </template>

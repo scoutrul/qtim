@@ -2,14 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Базовые стили для всего сайта */
+@layer base {
+  @font-face {
+    font-family: 'TTCommons';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/TTCommons/TTCommons-Light.woff') format('woff'),
+         url('/fonts/TTCommons/TTCommons-Light.ttf') format('truetype'),
+         url('/fonts/TTCommons/TTCommons-Light.eot');
+  }
+
+  @font-face {
+    font-family: 'TTCommons';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/TTCommons/TTCommons-Regular.woff') format('woff'),
+         url('/fonts/TTCommons/TTCommons-Regular.ttf') format('truetype'),
+         url('/fonts/TTCommons/TTCommons-Regular.eot');
+  }
+
+  @font-face {
+    font-family: 'TTCommons';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/TTCommons/TTCommons-Bold.woff') format('woff'),
+         url('/fonts/TTCommons/TTCommons-Bold.ttf') format('truetype'),
+         url('/fonts/TTCommons/TTCommons-Bold.eot');
+  }
+
+  html {
+    font-family: 'TTCommons', system-ui, sans-serif;
+  }
+}
+
+/* Глобальные стили для всего сайта */
 :root {
   --primary-color: #8a70ff;
   --primary-bg: #f0ebff;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'TTCommons', sans-serif;
   color: #333;
   line-height: 1.5;
 }
@@ -91,7 +127,7 @@ body.overflow-hidden {
 
 /* Глобальные утилиты */
 .btn-lets-work {
-  @apply font-tt-commons bg-black hover:bg-black/90 text-white text-[20px];
+  @apply font-sans bg-black hover:bg-black/90 text-white text-[20px];
 }
 
 .nav-link-spacing {

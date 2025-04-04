@@ -143,7 +143,7 @@
               v-for="(item, index) in menuItems"
               :key="item.path"
               :href="item.path"
-              :class="['font-tt-commons', index < menuItems.length - 1 ? 'nav-link-spacing' : '']"
+              :class="[index < menuItems.length - 1 ? 'nav-link-spacing' : '']"
             >
               {{ t(item.translationKey) }}
             </NavLink>
@@ -176,7 +176,7 @@
               v-for="item in menuItems"
               :key="item.path"
               :href="item.path"
-              class="text-2xl py-2 font-tt-commons"
+              class="text-2xl py-2"
             >
               {{ t(item.translationKey) }}
             </NavLink>
