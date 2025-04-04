@@ -23,7 +23,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "rm -rf public/storybook && mkdir -p public/storybook && storybook build && cp -r storybook-static/* public/storybook/",
     "serve-storybook": "serve storybook-static",
-    "vercel-build": "mkdir -p .output && turbo run vercel-deploy && cp -r storybook-static .output/storybook-static",
+    "vercel-build": "mkdir -p .output/public && turbo run vercel-deploy && cp -r storybook-static .output/public/storybook-static",
     "clean": "rm -rf .nuxt .output storybook-static public/storybook"
   },
   "dependencies": {

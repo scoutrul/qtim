@@ -1,37 +1,12 @@
 {
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": ["vitest/globals", "node"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"],
       "@/*": ["./*"],
-      "#app": ["./node_modules/nuxt/dist/app"],
-      "#imports": ["./.nuxt/types/imports"]
+      "~/*": ["./*"]
     },
-    "moduleResolution": "bundler",
-    "target": "ESNext",
-    "module": "ESNext",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "jsx": "preserve",
-    "jsxImportSource": "vue",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "useUnknownInCatchVariables": true,
-    "alwaysStrict": true,
-    "forceConsistentCasingInFileNames": true,
-    "verbatimModuleSyntax": true
-  },
-  "vueCompilerOptions": {
-    "target": 3
+    "types": ["node"]
   },
   "include": [
     ".nuxt/nuxt.d.ts",
@@ -42,7 +17,8 @@
     "layouts/**/*.vue",
     ".storybook/**/*",
     "*.vue",
-    "constants/article.ts",
-    ".eslintrc.json"
-  ]
+    "composables/**/*.ts",
+    "composables/**/*.vue"
+  ],
+  "exclude": ["node_modules", ".output", "dist"]
 }

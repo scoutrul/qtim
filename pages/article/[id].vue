@@ -62,6 +62,7 @@
   import { ref, computed, onMounted, watch } from 'vue'
   import { useRoute } from 'vue-router'
   import type { Post } from '@/types/post'
+
   import Skeleton from '@/components/ui/Skeleton.vue'
   import ImagePlaceholder from '@/components/ui/ImagePlaceholder.vue'
   import ArticleContentSkeleton from '@/components/article/ArticleContentSkeleton.vue'

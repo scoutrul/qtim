@@ -8,15 +8,11 @@
   "rewrites": [
     {
       "source": "/storybook/(.*)",
-      "destination": "/storybook-static/$1"
+      "destination": "/public/storybook-static/$1"
     },
     {
       "source": "/storybook",
-      "destination": "/storybook-static/index.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
+      "destination": "/public/storybook-static/index.html"
     }
   ],
   "headers": [
